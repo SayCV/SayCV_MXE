@@ -28,7 +28,7 @@ PREFIX     := $(PWD)/usr
 LOG_DIR    := $(PWD)/log
 TIMESTAMP  := $(shell date +%Y%m%d_%H%M%S)
 PKG_DIR    := $(PWD)/pkg
-TMP_DIR     = $(PWD)/tmp-$(1)
+TMP_DIR     = $(PWD)/tmp/$(1)
 MAKEFILE   := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 TOP_DIR    := $(patsubst %/,%,$(dir $(MAKEFILE)))
 PKGS       := $(shell $(SED) -n 's/^.* id="\([^"]*\)-package">.*$$/\1/p' '$(TOP_DIR)/index.html')
@@ -52,7 +52,8 @@ UNPACK_ARCHIVE = \
     $(if $(filter %.tar.lzma,$(1)),xz -dc -F lzma '$(1)' | tar xf -, \
     $(if $(filter %.tar.xz,$(1)),xz -dc '$(1)' | tar xf -, \
     $(if $(filter %.zip,     $(1)),unzip -q '$(1)', \
-    $(error Unknown archive format: $(1))))))))
+    $(if $(filter %.exe,$(1)),cp '$(1)' ., \
+    $(error Unknown archive format: $(1)))))))))
 
 UNPACK_PKG_ARCHIVE = \
     $(call UNPACK_ARCHIVE,$(PKG_DIR)/$($(1)_FILE))
@@ -198,7 +199,7 @@ $(PREFIX)/installed/$(1): $(TOP_DIR)/src/$(1).mk \
 build-only-$(1): PKG = $(1)
 build-only-$(1):
 	$(if $(value $(1)_BUILD),
-	    rm -rf   '$(2)'
+#	    rm -rf   '$(2)'
 	    mkdir -p '$(2)'
 	    cd '$(2)' && $(call UNPACK_PKG_ARCHIVE,$(1))
 	    cd '$(2)/$($(1)_SUBDIR)'
@@ -206,7 +207,7 @@ build-only-$(1):
 	        (cd '$(2)/$($(1)_SUBDIR)' && $(PATCH) -p1 -u) < $(PKG_PATCH))
 	    $$(call $(1)_BUILD,$(2)/$($(1)_SUBDIR),$(TOP_DIR)/src/$(1)-test)
 	    (du -k -d 0 '$(2)' 2>/dev/null || du -k --max-depth 0 '$(2)') | $(SED) -n 's/^\(\S*\).*/du: \1 KiB/p'
-	    rm -rfv  '$(2)'
+#	    rm -rfv  '$(2)'
 	    ,)
 	[ -d '$(PREFIX)/installed' ] || mkdir -p '$(PREFIX)/installed'
 	touch '$(PREFIX)/installed/$(1)'
@@ -243,8 +244,12 @@ update:
 	$(foreach PKG,$(PKGS),$(call UPDATE,$(PKG),$(shell $($(PKG)_UPDATE))))
 
 update-checksum-%:
+update-downloaded-checksum-%:
 	$(call DOWNLOAD_PKG_ARCHIVE,$*)
 	$(SED) -i 's/^\([^ ]*_CHECKSUM *:=\).*/\1 '"`$(call PKG_CHECKSUM,$*)`"'/' '$(TOP_DIR)/src/$*.mk'
+
+update-patch-%:
+	$(SED) -i 's/^\([^ ]*_PATCH_VERSION *:=\).*/\1 '"`$(call $*_UPDATE_PATCH,$*)`"'/' '$(TOP_DIR)/src/$*.mk'
 
 cleanup-style:
 	@$(foreach FILE,$(wildcard $(addprefix $(TOP_DIR)/,Makefile index.html CNAME src/*.mk src/*test.* tools/*)),\

@@ -1,0 +1,26 @@
+d45893c8bc03abb6cf797ffc6c9a210a059d7f1c
+ globals.h | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/globals.h b/globals.h
+index 11b7215..4cd3fe2 100644
+--- a/globals.h
++++ b/globals.h
+@@ -264,7 +264,7 @@ typedef struct Globals {
+     uch      *outbufptr;           /* extract.c static */
+     ulg      outsize;              /* extract.c static */
+     int      reported_backslash;   /* extract.c static */
+-    int      disk_full;
++    
+     int      newfile;
+ 
+     int      didCRlast;            /* fileio static */
+@@ -314,7 +314,7 @@ typedef struct Globals {
+     int nopwd;         /* crypt static */
+ #endif /* !FUNZIP */
+     z_uint4 keys[3];   /* crypt static: keys defining pseudo-random sequence */
+-
++	int      disk_full;
+ #if (!defined(DOS_FLX_H68_NLM_OS2_W32) && !defined(AMIGA) && !defined(RISCOS))
+ #if (!defined(MACOS) && !defined(ATARI) && !defined(VMS))
+     int echofd;        /* ttyio static: file descriptor whose echo is off */

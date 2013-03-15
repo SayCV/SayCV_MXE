@@ -1,0 +1,63 @@
+# This file is part of MXE.
+# See index.html for further information.
+
+PKG             := pkg-config
+$(PKG)_IGNORE   := 
+$(PKG)_CHECKSUM := 08249417a51c0a7a940e4276105b142b77e576b5
+$(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
+$(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
+$(PKG)_URL      := http://pkgconfig.freedesktop.org/releases/$($(PKG)_FILE)
+$(PKG)_DEPS     := 
+ 
+BOOL_SRC_BUILD_DIRECT   := 1
+$(PKG)_DIR_SRC  := $(PKG_DIR)/$(PKG)
+$(PKG)_GIT_URL  := git://anongit.freedesktop.org/pkg-config
+$(PKG)_SRC_TYPE := git
+#$(PKG)_SRC_TYPE := tar
+
+define $(PKG)_UPDATE
+    $(WGET) -q -O- 'http://pkgconfig.freedesktop.org/releases/?C=M;O=D' | \
+    $(SED) -n 's,.*<a href="pkg-config-\([0-9.]*\).tar.gz".*,\1,p' | \
+    head -1
+endef
+
+define $(PKG)_SRC_GET
+    if test '$($(PKG)_SRC_TYPE)' == 'git'; then \
+      echo "git clone src ...";  \
+      cd $(PKG_DIR) && \
+      git clone $($(PKG)_GIT_URL) $(PKG); \
+    fi
+endef
+  
+define $(PKG)_BUILD_CFG
+	mkdir -p '$(1).build'; \
+  cd    '$(1).build' && '$($(PKG)_DIR_SRC)/configure' \
+        --build="`config.guess`" \
+        --prefix='$(PREFIX)' \
+        --with-gcc \
+        --with-gnu-ld \
+        --with-gnu-as \
+        --disable-nls \
+        --disable-shared \
+        --disable-werror \
+        --with-internal-glib \
+         &&  \
+  cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
+endef
+
+define $(PKG)_BUILD
+	if ! test -d '$($(PKG)_DIR_SRC)'; then \
+		$(call $(PKG)_SRC_GET,$(1),$(2)); \
+	fi
+
+	if ! test -f '$($(PKG)_DIR_SRC)/configure'; then \
+		cd $($(PKG)_DIR_SRC)/ && ./autogen.sh; \
+	fi
+
+	if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+		$(call $(PKG)_BUILD_CFG,$(1),$(2)); \
+	fi
+	
+	$(MAKE) -C '$(1).build' -j '$(JOBS)'
+	$(MAKE) -C '$(1).build' -j 1 install
+endef
