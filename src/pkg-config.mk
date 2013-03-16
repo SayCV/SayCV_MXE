@@ -7,7 +7,7 @@ $(PKG)_CHECKSUM := 08249417a51c0a7a940e4276105b142b77e576b5
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := http://pkgconfig.freedesktop.org/releases/$($(PKG)_FILE)
-$(PKG)_DEPS     := 
+$(PKG)_DEPS     := mingwrt w32api binutils
  
 BOOL_SRC_BUILD_DIRECT   := 1
 $(PKG)_DIR_SRC  := $(PKG_DIR)/$(PKG)
@@ -33,7 +33,7 @@ define $(PKG)_BUILD_CFG
 	mkdir -p '$(1).build'; \
   cd    '$(1).build' && '$($(PKG)_DIR_SRC)/configure' \
         --cache-file=win32.cache \
-        --host=mingw32 \
+        --build="`config.guess`" \
         --prefix='$(PREFIX)' \
         --with-gcc \
         --with-gnu-ld \
@@ -52,14 +52,15 @@ define $(PKG)_BUILD
 	fi
 
 	if ! test -f '$($(PKG)_DIR_SRC)/configure'; then \
-		cd '$($(PKG)_DIR_SRC)' && ./autogen.sh; \
+		cd '$($(PKG)_DIR_SRC)' && autoreconf -iv; \
 	fi
 	
+	rm -f '$(1).build/win32.cache'
 	if ! test -f '$(1).build/win32.cache'; then \
 		echo create win32.cache and prevent configure from changing it; \
 		cd '$(1).build' && touch win32.cache \
-		&& echo glib_cv_long_long_format=I64\n > win32.cache \
-		&& echo glib_cv_stack_grows=no\n > win32.cache \
+		&& echo -e "glib_cv_long_long_format=I64" >> win32.cache \
+		&& echo -e "glib_cv_stack_grows=no" >> win32.cache \
 		&& chmod a-w win32.cache; \
 	fi
 
