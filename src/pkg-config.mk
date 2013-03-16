@@ -7,9 +7,9 @@ $(PKG)_CHECKSUM := 08249417a51c0a7a940e4276105b142b77e576b5
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := http://pkgconfig.freedesktop.org/releases/$($(PKG)_FILE)
-$(PKG)_DEPS     := mingwrt w32api binutils
+$(PKG)_DEPS     := mingwrt w32api binutils gtk-bin
  
-BOOL_SRC_BUILD_DIRECT   := 1
+PKG_SRC_BUILD   := 0
 $(PKG)_DIR_SRC  := $(PKG_DIR)/$(PKG)
 $(PKG)_GIT_URL  := git://anongit.freedesktop.org/pkg-config
 $(PKG)_SRC_TYPE := git
@@ -47,28 +47,32 @@ define $(PKG)_BUILD_CFG
 endef
 
 define $(PKG)_BUILD
-	if ! test -d '$($(PKG)_DIR_SRC)'; then \
-		$(call $(PKG)_SRC_GET,$(1),$(2)); \
-	fi
-
-	if ! test -f '$($(PKG)_DIR_SRC)/configure'; then \
-		cd '$($(PKG)_DIR_SRC)' && autoreconf -iv; \
+	if test '$(PKG_SRC_BUILD)' = '1'; then \
+  	if ! test -d '$($(PKG)_DIR_SRC)'; then \
+  		$(call $(PKG)_SRC_GET,$(1),$(2)); \
+  		if ! test -f '$($(PKG)_DIR_SRC)/configure'; then \
+  		  cd '$($(PKG)_DIR_SRC)' && autoreconf -iv; \
+  	  fi; \
+  	  \
+  	  rm -f '$(1).build/win32.cache'; \
+  	  if ! test -f '$(1).build/win32.cache'; then \
+    		echo create win32.cache and prevent configure from changing it; \
+    		mkdir -p '$(1).build'; \
+    		cd '$(1).build' && touch win32.cache \
+    		&& echo -e "glib_cv_long_long_format=I64" >> win32.cache \
+    		&& echo -e "glib_cv_stack_grows=no" >> win32.cache \
+    		&& chmod a-w win32.cache; \
+    	fi; \
+    	if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+    		$(call $(PKG)_BUILD_CFG,$(1),$(2)); \
+    	fi; \
+    	\
+    	$(MAKE) -C '$(1).build' -j '$(JOBS)'; \
+    	$(MAKE) -C '$(1).build' -j 1 install; \
+  	fi; \
 	fi
 	
-	rm -f '$(1).build/win32.cache'
-	if ! test -f '$(1).build/win32.cache'; then \
-		echo create win32.cache and prevent configure from changing it; \
-		mkdir -p '$(1).build'; \
-		cd '$(1).build' && touch win32.cache \
-		&& echo -e "glib_cv_long_long_format=I64" >> win32.cache \
-		&& echo -e "glib_cv_stack_grows=no" >> win32.cache \
-		&& chmod a-w win32.cache; \
-	fi
-
-	if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
-		$(call $(PKG)_BUILD_CFG,$(1),$(2)); \
-	fi
-	
-	$(MAKE) -C '$(1).build' -j '$(JOBS)'
-	$(MAKE) -C '$(1).build' -j 1 install
+  if test '$(PKG_SRC_BUILD)' = '0'; then \
+    echo "Build Bin: pkg-config Depend On Install Package gtk-bin."
+  fi
 endef
