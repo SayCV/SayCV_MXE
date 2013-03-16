@@ -63,7 +63,7 @@ define $(PKG)_BUILD
     		&& echo -e "glib_cv_stack_grows=no" >> win32.cache \
     		&& chmod a-w win32.cache; \
     	fi; \
-    	if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+    	if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
     		$(call $(PKG)_BUILD_CFG,$(1),$(2)); \
     	fi; \
     	\
