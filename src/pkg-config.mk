@@ -32,7 +32,8 @@ endef
 define $(PKG)_BUILD_CFG
 	mkdir -p '$(1).build'; \
   cd    '$(1).build' && '$($(PKG)_DIR_SRC)/configure' \
-        --build="`config.guess`" \
+        --cache-file=win32.cache \
+        --host=mingw32 \
         --prefix='$(PREFIX)' \
         --with-gcc \
         --with-gnu-ld \
@@ -51,7 +52,15 @@ define $(PKG)_BUILD
 	fi
 
 	if ! test -f '$($(PKG)_DIR_SRC)/configure'; then \
-		cd $($(PKG)_DIR_SRC)/ && ./autogen.sh; \
+		cd '$($(PKG)_DIR_SRC)' && ./autogen.sh; \
+	fi
+	
+	if ! test -f '$(1).build/win32.cache'; then \
+		echo create win32.cache and prevent configure from changing it; \
+		cd '$(1).build' && touch win32.cache \
+		&& echo glib_cv_long_long_format=I64\n > win32.cache \
+		&& echo glib_cv_stack_grows=no\n > win32.cache \
+		&& chmod a-w win32.cache; \
 	fi
 
 	if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
