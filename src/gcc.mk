@@ -27,29 +27,37 @@ define $(PKG)_BUILD
     mv '$(1)/$(gcc-mpfr_SUBDIR)' '$(1)/mpfr'
 
     # build GCC and support libraries
-    mkdir '$(1).build'
-    cd    '$(1).build' && '$(1)/configure' \
-        --target='$(TARGET)' \
-        --build="`config.guess`" \
-        --prefix='$(PREFIX)' \
-        --libdir='$(PREFIX)/lib' \
-        --enable-languages='c,c++,objc,fortran' \
-        --enable-version-specific-runtime-libs \
-        --with-gcc \
-        --with-gnu-ld \
-        --with-gnu-as \
-        --disable-nls \
-        --disable-shared \
-        --disable-sjlj-exceptions \
-        --without-x \
-        --disable-win32-registry \
-        --enable-threads=win32 \
-        --disable-libgomp \
-        --disable-libmudflap \
-        --with-mpfr-include='$(1)/mpfr/src' \
-        --with-mpfr-lib='$(1).build/mpfr/src/.libs' \
-        $(shell [ `uname -s` == Darwin ] && echo "LDFLAGS='-Wl,-no_pie'")
-    $(MAKE) -C '$(1).build' -j '$(JOBS)'
+    mkdir -p '$(1).build'
+    if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+      cd    '$(1).build' && '$(1)/configure' \
+          --target='$(TARGET)' \
+          --build="`config.guess`" \
+          --prefix='$(PREFIX)' \
+          --libdir='$(PREFIX)/lib' \
+          --enable-languages='c,c++,objc,fortran' \
+          --enable-version-specific-runtime-libs \
+          --with-gcc \
+          --with-gnu-ld \
+          --with-gnu-as \
+          --disable-nls \
+          --disable-shared \
+          --disable-sjlj-exceptions \
+          --without-x \
+          --disable-win32-registry \
+          --enable-threads=win32 \
+          --disable-libgomp \
+          --disable-libmudflap \
+          --with-mpfr-include='$(1)/mpfr/src' \
+          --with-mpfr-lib='$(1).build/mpfr/src/.libs' \
+          $(shell [ `uname -s` == Darwin ] && echo "LDFLAGS='-Wl,-no_pie'"); \
+      && \
+      cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
+    fi
+    if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
+      $(MAKE) -C '$(1).build' -j '$(JOBS)' \
+      && \
+      cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'
+    fi
     $(MAKE) -C '$(1).build' -j 1 install
 
     # create pkg-config script
