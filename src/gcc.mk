@@ -19,12 +19,15 @@ endef
 
 define $(PKG)_BUILD
     # unpack support libraries
-    cd '$(1)' && $(call UNPACK_PKG_ARCHIVE,gcc-gmp)
-    mv '$(1)/$(gcc-gmp_SUBDIR)' '$(1)/gmp'
-    cd '$(1)' && $(call UNPACK_PKG_ARCHIVE,gcc-mpc)
-    mv '$(1)/$(gcc-mpc_SUBDIR)' '$(1)/mpc'
-    cd '$(1)' && $(call UNPACK_PKG_ARCHIVE,gcc-mpfr)
-    mv '$(1)/$(gcc-mpfr_SUBDIR)' '$(1)/mpfr'
+    if ! test -f '$(1)/stamp_unapck_sub_libs'; then \
+      cd '$(1)' && $(call UNPACK_PKG_ARCHIVE,gcc-gmp); \
+      mv '$(1)/$(gcc-gmp_SUBDIR)' '$(1)/gmp'; \
+      cd '$(1)' && $(call UNPACK_PKG_ARCHIVE,gcc-mpc); \
+      mv '$(1)/$(gcc-mpc_SUBDIR)' '$(1)/mpc'; \
+      cd '$(1)' && $(call UNPACK_PKG_ARCHIVE,gcc-mpfr); \
+      mv '$(1)/$(gcc-mpfr_SUBDIR)' '$(1)/mpfr'; \
+      cd '$(1)' && touch '$(1)/stamp_unapck_sub_libs'; \
+    fi
 
     # build GCC and support libraries
     mkdir -p '$(1).build'
@@ -49,14 +52,14 @@ define $(PKG)_BUILD
           --disable-libmudflap \
           --with-mpfr-include='$(1)/mpfr/src' \
           --with-mpfr-lib='$(1).build/mpfr/src/.libs' \
-          $(shell [ `uname -s` == Darwin ] && echo "LDFLAGS='-Wl,-no_pie'"); \
+          $(shell [ `uname -s` == Darwin ] && echo "LDFLAGS='-Wl,-no_pie'") \
       && \
-      cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
+      cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
     fi
     if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
       $(MAKE) -C '$(1).build' -j '$(JOBS)' \
       && \
-      cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'
+      cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
     fi
     $(MAKE) -C '$(1).build' -j 1 install
 
