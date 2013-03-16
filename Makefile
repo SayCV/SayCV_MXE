@@ -244,9 +244,11 @@ update:
 	$(foreach PKG,$(PKGS),$(call UPDATE,$(PKG),$(shell $($(PKG)_UPDATE))))
 
 update-checksum-%:
-update-downloaded-checksum-%:
 	$(call DOWNLOAD_PKG_ARCHIVE,$*)
-	$(SED) -i 's/^\([^ ]*_CHECKSUM *:=\).*/\1 '"`$(call PKG_CHECKSUM,$*)`"'/' '$(TOP_DIR)/src/$*.mk'
+	@$(SED) -i 's/^\([^ ]*_CHECKSUM *:=\).*/\1 '"`$(call PKG_CHECKSUM,$*)`"'/' '$(TOP_DIR)/src/$*.mk'
+
+update-downloaded-checksum-%:
+	@$(SED) -i 's/^\([^ ]*_CHECKSUM *:=\).*/\1 '"`$(call PKG_CHECKSUM,$*)`"'/' '$(TOP_DIR)/src/$*.mk'
 
 update-patch-%:
 	$(SED) -i 's/^\([^ ]*_PATCH_VERSION *:=\).*/\1 '"`$(call $*_UPDATE_PATCH,$*)`"'/' '$(TOP_DIR)/src/$*.mk'
