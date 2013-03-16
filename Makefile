@@ -201,10 +201,16 @@ build-only-$(1):
 	$(if $(value $(1)_BUILD),
 #	    rm -rf   '$(2)'
 	    mkdir -p '$(2)'
-	    cd '$(2)' && $(call UNPACK_PKG_ARCHIVE,$(1))
+	    if ! test -d '$(2)/$($(1)_SUBDIR)/stamp_unpack_$($(1)_SUBDIR)'; then \
+	      cd '$(2)' && $(call UNPACK_PKG_ARCHIVE,$(1)); \
+	      cd '$(2)' && touch stamp_unpack_$($(1)_SUBDIR); \
+	    fi
 	    cd '$(2)/$($(1)_SUBDIR)'
-	    $(foreach PKG_PATCH,$(sort $(wildcard $(TOP_DIR)/src/$(1)-*.patch)),
-	        (cd '$(2)/$($(1)_SUBDIR)' && $(PATCH) -p1 -u) < $(PKG_PATCH))
+	    if ! test -f '$(2)/$($(1)_SUBDIR)/stamp_patch_$($(1)_SUBDIR)'; then \
+	      $(foreach PKG_PATCH,$(sort $(wildcard $(TOP_DIR)/src/$(1)-*.patch)), \
+	          (cd '$(2)/$($(1)_SUBDIR)' && $(PATCH) -p1 -u) < $(PKG_PATCH);) \
+	      cd '$(2)/$($(1)_SUBDIR)' && touch 'stamp_patch_$($(PKG)_SUBDIR)'; \
+	    fi
 	    $$(call $(1)_BUILD,$(2)/$($(1)_SUBDIR),$(TOP_DIR)/src/$(1)-test)
 	    (du -k -d 0 '$(2)' 2>/dev/null || du -k --max-depth 0 '$(2)') | $(SED) -n 's/^\(\S*\).*/du: \1 KiB/p'
 #	    rm -rfv  '$(2)'
