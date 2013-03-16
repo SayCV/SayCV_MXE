@@ -201,7 +201,7 @@ build-only-$(1):
 	$(if $(value $(1)_BUILD),
 #	    rm -rf   '$(2)'
 	    mkdir -p '$(2)'
-	    if ! test -d '$(2)/stamp_unpack_$($(1)_SUBDIR)'; then \
+	    if ! test -f '$(2)/stamp_unpack_$($(1)_SUBDIR)'; then \
 	      cd '$(2)' && $(call UNPACK_PKG_ARCHIVE,$(1)); \
 	      cd '$(2)' && touch stamp_unpack_$($(1)_SUBDIR); \
 	    fi
