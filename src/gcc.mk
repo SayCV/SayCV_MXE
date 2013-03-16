@@ -32,7 +32,7 @@ define $(PKG)_BUILD
     # build GCC and support libraries
     mkdir -p '$(1).build'
     if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
-      cd    '$(1).build' && '$(1)/configure' \
+      cd    '$(1).build' && '../$(gcc_SUBDIR)/configure' \
           --target='$(TARGET)' \
           --build="`config.guess`" \
           --prefix='$(PREFIX)' \
