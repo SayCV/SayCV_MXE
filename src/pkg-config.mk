@@ -58,6 +58,7 @@ define $(PKG)_BUILD
 	rm -f '$(1).build/win32.cache'
 	if ! test -f '$(1).build/win32.cache'; then \
 		echo create win32.cache and prevent configure from changing it; \
+		mkdir -p '$(1).build'; \
 		cd '$(1).build' && touch win32.cache \
 		&& echo -e "glib_cv_long_long_format=I64" >> win32.cache \
 		&& echo -e "glib_cv_stack_grows=no" >> win32.cache \
