@@ -73,7 +73,7 @@ define $(PKG)_BUILD
     fi; \
     \
     if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
-      $(MAKE) -C '$(1.build)' -j '$(JOBS)' \
+      $(MAKE) -C '$(1).build' -j '$(JOBS)' \
       && \
       cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
     fi; \
