@@ -89,3 +89,7 @@ define $(PKG)_BUILD
      echo 'set(CMAKE_BUILD_TYPE Release CACHE STRING "Debug|Release|RelWithDebInfo|MinSizeRel")') \
      > '$(CMAKE_TOOLCHAIN_FILE)'
 endef
+
+# real	416m49.603s
+# user	33m15.521s
+# sys 	60m9.100s

@@ -51,7 +51,7 @@ UNPACK_ARCHIVE = \
     $(if $(filter %.tar.bz2, $(1)),tar xjf '$(1)', \
     $(if $(filter %.tar.lzma,$(1)),xz -dc -F lzma '$(1)' | tar xf -, \
     $(if $(filter %.tar.xz,$(1)),xz -dc '$(1)' | tar xf -, \
-    $(if $(filter %.zip,     $(1)),unzip -q '$(1)', \
+    $(if $(filter %.zip,     $(1)),unzip -qo '$(1)', \
     $(if $(filter %.exe,$(1)),cp '$(1)' ., \
     $(error Unknown archive format: $(1)))))))))
 
