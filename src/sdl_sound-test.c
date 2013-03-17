@@ -9,7 +9,7 @@
  */
 
 #include <stdio.h>
-#include <SDL_sound.h>
+#include <SDL/SDL_sound.h>
 
 int main(int argc, char *argv[])
 {

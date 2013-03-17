@@ -3,7 +3,7 @@
  * See index.html for further information.
  */
 
-#include <SDL_net.h>
+#include <SDL/SDL_net.h>
 
 int main(int argc, char *argv[])
 {

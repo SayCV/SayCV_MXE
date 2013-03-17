@@ -3,7 +3,7 @@
  * See index.html for further information.
  */
 
-#include <SDL_mixer.h>
+#include <SDL/SDL_mixer.h>
 
 int main(int argc, char *argv[])
 {

@@ -3,7 +3,7 @@
  * See index.html for further information.
  */
 
-#include <SDL.h>
+#include <SDL/SDL.h>
 #include "SDL_rotozoom.h"
 #include "SDL_framerate.h"
 
