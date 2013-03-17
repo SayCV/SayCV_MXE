@@ -32,7 +32,7 @@ TMP_DIR     = $(PWD)/tmp/$(1)
 MAKEFILE   := $(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))
 TOP_DIR    := $(patsubst %/,%,$(dir $(MAKEFILE)))
 PKGS       := $(shell $(SED) -n 's/^.* id="\([^"]*\)-package">.*$$/\1/p' '$(TOP_DIR)/index.html')
-PATH       := $(PREFIX)/bin:$(PATH):$(PREFIX)/gtk
+PATH       := $(PREFIX)/bin:$(PREFIX)/opt/gtk:$(PREFIX)/opt/cmake:$(PATH)
 
 CMAKE_TOOLCHAIN_FILE := $(PREFIX)/$(TARGET)/share/cmake/mxe-conf.cmake
 
