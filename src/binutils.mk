@@ -29,7 +29,7 @@ define $(PKG)_BUILD
     cd '$(1)' && ./configure \
         --target='$(TARGET)' \
         --build="`config.guess`" \
-        --prefix='$(PREFIX)' \
+        --prefix='$(PREFIX)/opt/binutils' \
         --with-gcc \
         --with-gnu-ld \
         --with-gnu-as \
@@ -38,4 +38,12 @@ define $(PKG)_BUILD
         --disable-werror
     $(MAKE) -C '$(1)' -j '$(JOBS)'
     $(MAKE) -C '$(1)' -j 1 install
+    
+    if test [ -d '$(PREFIX)/opt/binutils' ]; then \
+      cd '$(PREFIX)/opt/binutils' && \
+      echo 'Hacked to copy origin files and add transfer_programe_name:i686-pc-mingw32- to *.exe' && \
+      cp -rpv * '$(PREFIX)' && \
+      find . *.exe -type f|xargs -i+ mv + '$(TARGET)-'+ && \
+      cp -rpv * '$(PREFIX)'; \
+    fi
 endef

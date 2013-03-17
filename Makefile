@@ -92,6 +92,7 @@ else
         echo '#JOBS = $(JOBS)'; \
         echo '#.DEFAULT my-pkgs:'; \
         echo '#my-pkgs: boost curl file flac lzo pthreads vorbis wxwidgets'; \
+        echo '#all-pkgs: $(PKGS)'; \
     } >'$(PWD)/settings.mk')
 endif
 
