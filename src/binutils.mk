@@ -26,24 +26,41 @@ define $(PKG)_BUILD
     $(INSTALL) -d '$(PREFIX)/$(TARGET)/share'
     echo "ac_cv_build=`$(1)/config.guess`" > '$(PREFIX)/$(TARGET)/share/config.site'
 
-    cd '$(1)' && ./configure \
-        --target='$(TARGET)' \
-        --build="`config.guess`" \
-        --prefix='$(PREFIX)/opt/binutils' \
-        --with-gcc \
-        --with-gnu-ld \
-        --with-gnu-as \
-        --disable-nls \
-        --disable-shared \
-        --disable-werror
-    $(MAKE) -C '$(1)' -j '$(JOBS)'
-    $(MAKE) -C '$(1)' -j 1 install
+    if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+      cd '$(1)' && ./configure \
+          --target='$(TARGET)' \
+          --build="`config.guess`" \
+          --prefix='$(PREFIX)/opt/binutils' \
+          --with-gcc \
+          --with-gnu-ld \
+          --with-gnu-as \
+          --disable-nls \
+          --disable-shared \
+          --disable-werror \
+      && \
+        cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
+    fi
     
-    if test [ -d '$(PREFIX)/opt/binutils' ]; then \
+    if ! test -f '$(1)/stamp_make_$($(PKG)_SUBDIR)'; then \
+      $(MAKE) -C '$(1)' -j '$(JOBS)' \
+      && \
+      cd '$(1)' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
+    fi
+    
+    if ! test -f '$(1)/stamp_install_$($(PKG)_SUBDIR)'; then \
+      $(MAKE) -C '$(1)' -j 1 install \
+      && \
+      cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
+    fi
+    
+    if test -d '$(PREFIX)/opt/binutils'; then \
       cd '$(PREFIX)/opt/binutils' && \
       echo 'Hacked to copy origin files and add transfer_programe_name:i686-pc-mingw32- to *.exe' && \
-      cp -rpv * '$(PREFIX)' && \
-      find . *.exe -type f|xargs -i+ mv + '$(TARGET)-'+ && \
       cp -rpv * '$(PREFIX)'; \
+      cd '$(PREFIX)/opt/binutils/bin' && \
+      ls | xargs -I {} mv {} '$(TARGET)-{}' && \
+      cp -rpv * '$(PREFIX)/bin'; \
+      cd '$(PREFIX)/opt' && \
+      rm -rf '$(PREFIX)/opt/binutils'; \
     fi
 endef
