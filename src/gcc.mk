@@ -64,7 +64,7 @@ define $(PKG)_BUILD
     fi
     
     if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
-      $(MAKE) -C '$(1).build' -j 1 install
+      $(MAKE) -C '$(1).build' -j 1 install \
       && \
       cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
     fi
