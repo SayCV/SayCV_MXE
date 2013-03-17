@@ -56,12 +56,18 @@ define $(PKG)_BUILD
       && \
       cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
     fi
+    
     if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
       $(MAKE) -C '$(1).build' -j '$(JOBS)' \
       && \
       cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
     fi
-    $(MAKE) -C '$(1).build' -j 1 install
+    
+    if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
+      $(MAKE) -C '$(1).build' -j 1 install
+      && \
+      cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
+    fi
 
     # create pkg-config script
     (echo '#!/bin/sh'; \

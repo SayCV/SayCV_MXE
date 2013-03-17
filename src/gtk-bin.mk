@@ -19,7 +19,7 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
-    $(INSTALL) -d '$(PREFIX)/$(TARGET)'
+    $(INSTALL) -d '$(PREFIX)/opt/gtk'
     cd '$(1)' && \
-        cp -rpv * '$(PREFIX)'
+        cp -rpv * '$(PREFIX)/opt/gtk'
 endef

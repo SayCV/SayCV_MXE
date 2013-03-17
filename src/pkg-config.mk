@@ -73,6 +73,6 @@ define $(PKG)_BUILD
 	fi
 	
   if test '$(PKG_SRC_BUILD)' = '0'; then \
-    echo "Build Bin: pkg-config Depend On Install Package gtk-bin."
+    echo "Build Bin: pkg-config Depend On Install Package gtk-bin."; \
   fi
 endef
