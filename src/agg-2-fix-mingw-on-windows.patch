@@ -1,0 +1,15 @@
+--- a/configure.in	2013-03-19 00:21:47 +0800
++++ b/configure.in	2013-03-19 00:17:46 +0800
+@@ -69,11 +69,7 @@
+ 
+ dnl #########  Check for FT2: #####################
+ ft_enabled=""
+-PKG_CHECK_MODULES([FREETYPE],
+-    freetype2,
+-    [ft_enabled="yes"],
+-    AC_MSG_WARN([*** Freetype2 not found! Building without font library.])
+-    )
++
+ AC_ARG_ENABLE(freetype,
+     AC_HELP_STRING([--enable-freetype],[freetype font support library]),
+     ft_enabled=$enable_freetype)
