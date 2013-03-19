@@ -256,7 +256,7 @@ update:
 update-checksum-%:
 	if ! [ '$($*_CHECKSUM)' == "`$(call PKG_CHECKSUM,$*)`" ]; then \
       $(call DOWNLOAD_PKG_ARCHIVE,$*); \
-      @$(SED) -i 's/^\([^ ]*_CHECKSUM *:=\).*/\1 '"`$(call PKG_CHECKSUM,$*)`"'/' '$(TOP_DIR)/src/$*.mk'; \
+      $(SED) -i 's/^\([^ ]*_CHECKSUM *:=\).*/\1 '"`$(call PKG_CHECKSUM,$*)`"'/' '$(TOP_DIR)/src/$*.mk'; \
 	fi
 	
 
