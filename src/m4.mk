@@ -3,12 +3,12 @@
 
 PKG             := m4
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 38616cb8a8ad159898cb73e5e11e2cbd51ed1de1
-$(PKG)_SUBDIR   := m4-$($(PKG)_VERSION)
-$(PKG)_FILE     := m4-$($(PKG)_VERSION)-1-msys-1.0.17-src.tar.lzma
+$(PKG)_CHECKSUM := 44b3ed8931f65cdab02aee66ae1e49724d2551a4
+$(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
+$(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_PATCH_VERSION := 
 $(PKG)_PATCH_FILE    := m4-$($(PKG)_VERSION)-1-msys-1.0.17-patch.tar.lzma
-$(PKG)_URL      := http://$(SOURCEFORGE_MIRROR)/project/msysdev/ALL/m4/m4-$($(PKG)_VERSION)/$($(PKG)_FILE)
+$(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
 $(PKG)_DEPS     := 
 
 define $(PKG)_UPDATE
@@ -30,7 +30,8 @@ define $(PKG)_GET_PATCH
 endef
 
 # cd    '$(1)' && autoreconf -fvi
-define $(PKG)_BUILD
+define $(PKG)_BUILD_1
+	
 	# download patch
 	if ! test -f '$(PKG_DIR)/$($(PKG)_PATCH_FILE)'; then \
 		$(call $(PKG)_GET_PATCH); \
@@ -43,6 +44,24 @@ define $(PKG)_BUILD
 			(cd '$(1)' && $(PATCH) -p1 -u) < $(PKG_PATCH);) \
 		cd '$(1)' && touch 'stamp_pkg_patch_$($(PKG)_SUBDIR)'; \
 	fi
+	
+	if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+		cd    '$(1)' && autoreconf -fvi; \
+    	mkdir -p '$(1).build'; \
+	    cd    '$(1).build' && '../m4-1.4.16/configure' \
+        	--target='$(TARGET)' \
+        	--build="`config.guess`" \
+        	--prefix='$(PREFIX)' \
+        	--disable-assert \
+        	--disable-rpath \
+        	CFLAGS=-D__MSYS__ &&  \
+		cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
+    fi
+    $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0
+    $(MAKE) -C '$(1).build' -j 1         install
+endef
+
+define $(PKG)_BUILD
 	
 	if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
 		cd    '$(1)' && autoreconf -fvi; \

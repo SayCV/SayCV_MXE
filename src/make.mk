@@ -4,9 +4,9 @@
 PKG             := make
 $(PKG)_IGNORE   :=
 $(PKG)_CHECKSUM := 92d1b87a30d1c9482e52fb4a68e8a355e7946331
-$(PKG)_SUBDIR   := make-$($(PKG)_VERSION)
-$(PKG)_FILE     := make-$($(PKG)_VERSION).tar.gz
-$(PKG)_URL      := $(PKG_GNU)/make/$($(PKG)_FILE)
+$(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
+$(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
+$(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
 $(PKG)_DEPS     := 
  
 $(PKG)_SRC_BUILD   := 0
