@@ -1,0 +1,142 @@
+diff -urN a/m4/strstr.m4 b/m4/strstr.m4
+--- a/m4/strstr.m4	2011-03-02 00:39:31 +0800
++++ b/m4/strstr.m4	2012-01-28 17:21:52 +0800
+@@ -62,6 +62,9 @@
+ AC_DEFUN([gl_FUNC_STRSTR],
+ [
+   AC_REQUIRE([gl_FUNC_STRSTR_SIMPLE])
++  case "$host_os" in
++    msys* ) REPLACE_STRSTR=1 ;;
++  esac
+   if test $REPLACE_STRSTR = 0; then
+     AC_CACHE_CHECK([whether strstr works in linear time],
+       [gl_cv_func_strstr_linear],
+diff -urN a/tests/gnulib.mk b/tests/gnulib.mk
+--- a/tests/gnulib.mk	2011-03-02 00:39:46 +0800
++++ b/tests/gnulib.mk	2012-03-22 10:14:37 +0800
+@@ -196,14 +196,6 @@
+ 
+ ## end   gnulib module c-strcase-tests
+ 
+-## begin gnulib module canonicalize-lgpl-tests
+-
+-TESTS += test-canonicalize-lgpl
+-check_PROGRAMS += test-canonicalize-lgpl
+-EXTRA_DIST += test-canonicalize-lgpl.c signature.h macros.h
+-
+-## end   gnulib module canonicalize-lgpl-tests
+-
+ ## begin gnulib module cloexec-tests
+ 
+ TESTS += test-cloexec
+@@ -505,14 +497,6 @@
+ 
+ ## end   gnulib module link
+ 
+-## begin gnulib module link-tests
+-
+-TESTS += test-link
+-check_PROGRAMS += test-link
+-EXTRA_DIST += test-link.h test-link.c signature.h macros.h
+-
+-## end   gnulib module link-tests
+-
+ ## begin gnulib module linkedhash-list-tests
+ 
+ TESTS += test-linkedhash_list
+@@ -597,14 +581,6 @@
+ 
+ ## end   gnulib module lseek-tests
+ 
+-## begin gnulib module lstat-tests
+-
+-TESTS += test-lstat
+-check_PROGRAMS += test-lstat
+-EXTRA_DIST += test-lstat.h test-lstat.c signature.h macros.h
+-
+-## end   gnulib module lstat-tests
+-
+ ## begin gnulib module malloc-gnu-tests
+ 
+ TESTS += test-malloc-gnu
+@@ -775,30 +751,6 @@
+ 
+ ## end   gnulib module rawmemchr-tests
+ 
+-## begin gnulib module readlink-tests
+-
+-TESTS += test-readlink
+-check_PROGRAMS += test-readlink
+-EXTRA_DIST += test-readlink.h test-readlink.c signature.h macros.h
+-
+-## end   gnulib module readlink-tests
+-
+-## begin gnulib module rename-tests
+-
+-TESTS += test-rename
+-check_PROGRAMS += test-rename
+-EXTRA_DIST += test-rename.h test-rename.c signature.h macros.h
+-
+-## end   gnulib module rename-tests
+-
+-## begin gnulib module rmdir-tests
+-
+-TESTS += test-rmdir
+-check_PROGRAMS += test-rmdir
+-EXTRA_DIST += test-rmdir.h test-rmdir.c signature.h macros.h
+-
+-## end   gnulib module rmdir-tests
+-
+ ## begin gnulib module sched-tests
+ 
+ TESTS += test-sched
+@@ -833,19 +785,6 @@
+ 
+ ## end   gnulib module setlocale
+ 
+-## begin gnulib module setlocale-tests
+-
+-TESTS += test-setlocale1.sh test-setlocale2.sh
+-TESTS_ENVIRONMENT += \
+-  LOCALE_FR='@LOCALE_FR@' \
+-  LOCALE_FR_UTF8='@LOCALE_FR_UTF8@' \
+-  LOCALE_JA='@LOCALE_JA@' \
+-  LOCALE_ZH_CN='@LOCALE_ZH_CN@'
+-check_PROGRAMS += test-setlocale1 test-setlocale2
+-EXTRA_DIST += test-setlocale1.sh test-setlocale1.c test-setlocale2.sh test-setlocale2.c signature.h macros.h
+-
+-## end   gnulib module setlocale-tests
+-
+ ## begin gnulib module sigaction-tests
+ 
+ TESTS += test-sigaction
+@@ -921,14 +860,6 @@
+ 
+ ## end   gnulib module spawn-tests
+ 
+-## begin gnulib module stat-tests
+-
+-TESTS += test-stat
+-check_PROGRAMS += test-stat
+-EXTRA_DIST += test-stat.h test-stat.c signature.h macros.h
+-
+-## end   gnulib module stat-tests
+-
+ ## begin gnulib module stdbool-tests
+ 
+ TESTS += test-stdbool
+@@ -1080,14 +1011,6 @@
+ 
+ ## end   gnulib module symlink
+ 
+-## begin gnulib module symlink-tests
+-
+-TESTS += test-symlink
+-check_PROGRAMS += test-symlink
+-EXTRA_DIST += test-symlink.h test-symlink.c signature.h macros.h
+-
+-## end   gnulib module symlink-tests
+-
+ ## begin gnulib module sys_stat-c++-tests
+ 
+ if ANSICXX

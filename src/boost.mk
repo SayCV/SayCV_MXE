@@ -18,7 +18,7 @@ endef
 
 define $(PKG)_BUILD
     # context switched library introduced in boost 1.51.0 does not build
-    rm -r '$(1)/libs/context'
+    rm -rf '$(1)/libs/context'
     # old version appears to interfere
     rm -rf '$(PREFIX)/$(TARGET)/include/boost/'
     echo 'using gcc : : $(TARGET)-g++ : <rc>$(TARGET)-windres <archiver>$(TARGET)-ar ;' > '$(1)/user-config.jam'

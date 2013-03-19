@@ -6,6 +6,9 @@ TARGET             := i686-pc-mingw32
 SOURCEFORGE_MIRROR := freefr.dl.sourceforge.net
 PKG_MIRROR         := s3.amazonaws.com/mxe-pkg
 PKG_CDN            := d1yihgixbnrglp.cloudfront.net
+PKG_GNU            := http://ftp.gnu.org/gnu
+
+GIT_GNU            := git://git.savannah.gnu.org
 
 PWD        := $(shell pwd)
 SHELL      := bash
