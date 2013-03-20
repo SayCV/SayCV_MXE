@@ -11,6 +11,12 @@ $(PKG)_PATCH_FILE    := m4-$($(PKG)_VERSION)-1-msys-1.0.17-patch.tar.lzma
 $(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
 $(PKG)_DEPS     := 
 
+$(PKG)_BUILD_SRC     := 1
+$(PKG)_DIR_SRC       := $(PKG_DIR)/$(PKG)
+$(PKG)_GIT_URL_GIT   := $(GIT_GNU_GIT)/$(PKG)
+$(PKG)_GIT_URL_HTTP  := $(GIT_GNU_HTTP)/$(PKG).git
+$(PKG)_SRC_TYPE := git
+
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'http://ftp.gnu.org/gnu/m4' | \
     $(SED) -n 's,.*m4-\([0-9][^<]*\).*,\1,p' | \
@@ -29,52 +35,59 @@ define $(PKG)_GET_PATCH
 		> '$($(PKG)_PATCH_FILE)'
 endef
 
-# cd    '$(1)' && autoreconf -fvi
-define $(PKG)_BUILD_1
-	
-	# download patch
-	if ! test -f '$(PKG_DIR)/$($(PKG)_PATCH_FILE)'; then \
-		$(call $(PKG)_GET_PATCH); \
-		cd '$(PKG_DIR)' && xz -dc -F lzma '$($(PKG)_PATCH_FILE)' | tar xf -; \
-	fi
-	
-	# apply patch
-	if ! test -f '$(1)/stamp_pkg_patch_$($(PKG)_SUBDIR)'; then \
-		$(foreach PKG_PATCH,$(sort $(wildcard $(PKG_DIR)/m4-*.patch)),\
-			(cd '$(1)' && $(PATCH) -p1 -u) < $(PKG_PATCH);) \
-		cd '$(1)' && touch 'stamp_pkg_patch_$($(PKG)_SUBDIR)'; \
-	fi
-	
-	if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
-		cd    '$(1)' && autoreconf -fvi; \
-    	mkdir -p '$(1).build'; \
-	    cd    '$(1).build' && '../m4-1.4.16/configure' \
-        	--target='$(TARGET)' \
-        	--build="`config.guess`" \
-        	--prefix='$(PREFIX)' \
-        	--disable-assert \
-        	--disable-rpath \
-        	CFLAGS=-D__MSYS__ &&  \
-		cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
+define $(PKG)_SRC_GET
+    if test '$($(PKG)_SRC_TYPE)' == 'git'; then \
+      echo "git clone src ...";  \
+      cd $(PKG_DIR) && \
+      git clone $($(PKG)_GIT_URL_GIT) $(PKG); \
     fi
-    $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0
-    $(MAKE) -C '$(1).build' -j 1         install
 endef
 
 define $(PKG)_BUILD
-	
-	if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
-		cd    '$(1)' && autoreconf -fvi; \
+	if test '$($(PKG)_BUILD_SRC)' = '1'; then \
+    echo 'SayCV_MXE:$(PKG):Build from DEVEL src.'; \
+    echo 'SayCV_MXE:$(PKG):Get DEVEL src.'; \
+    if ! test -d '$($(PKG)_DIR_SRC)'; then \
+        $(call $(PKG)_SRC_GET,$(1),$(2)); \
+    fi; \
+    echo 'SayCV_MXE:$(PKG):Building DEVEL src.'; \
+    $(call $(PKG)_BUILD_X,$(1),$(2),$($(PKG)_DIR_SRC)); \
+	else \
+	  echo 'SayCV_MXE:$(PKG):Build from RELEASE src.'; \
+	  $(call $(PKG)_BUILD_X,$(1),$(2),$(1)); \
+	fi
+endef
+
+define $(PKG)_BUILD_CFG
     	mkdir -p '$(1).build'; \
-	    cd    '$(1).build' && '../m4-1.4.16/configure' \
+	    cd    '$(1).build' && '$(3)/configure' \
         	--target='$(TARGET)' \
         	--build="`config.guess`" \
         	--prefix='$(PREFIX)' \
         	--disable-assert \
         	--disable-rpath \
         	CFLAGS=-D__MSYS__ &&  \
-		cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
-    fi
-    $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0
-    $(MAKE) -C '$(1).build' -j 1         install
+      cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
+endef
+
+define $(PKG)_BUILD_X
+  if ! test -f '$(PKG_DIR)/stamp_bootstrap_$(PKG)'; then \
+		cd '$(3)' && ./bootstrap; \
+	fi; \
+	\
+  if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+      $(call $(PKG)_BUILD_CFG,$(1),$(2),$(3)); \
+  fi; \
+  \
+  if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
+      $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0 \
+      && \
+      cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
+  fi; \
+  \
+  if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
+      $(MAKE) -C '$(1).build' -j 1 install \
+      && \
+      cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
+  fi
 endef

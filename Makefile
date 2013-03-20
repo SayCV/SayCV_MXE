@@ -8,7 +8,8 @@ PKG_MIRROR         := s3.amazonaws.com/mxe-pkg
 PKG_CDN            := d1yihgixbnrglp.cloudfront.net
 PKG_GNU            := http://ftp.gnu.org/gnu
 
-GIT_GNU            := git://git.savannah.gnu.org
+GIT_GNU_GIT        := git://git.sv.gnu.org
+GIT_GNU_HTTP       := http://git.savannah.gnu.org/r
 
 PWD        := $(shell pwd)
 SHELL      := bash
@@ -44,6 +45,11 @@ unexport AR CC CFLAGS C_INCLUDE_PATH CPATH CPLUS_INCLUDE_PATH CPP
 unexport CPPFLAGS CROSS CXX CXXCPP CXXFLAGS EXEEXT EXTRA_CFLAGS
 unexport EXTRA_LDFLAGS LD LDFLAGS LIBRARY_PATH LIBS NM
 unexport OBJC_INCLUDE_PATH PKG_CONFIG QMAKESPEC RANLIB STRIP
+
+# export http_proxy="http://username:password@127.0.0.1:9999/"
+# export https_proxy="http://username:password@127.0.0.1:9999/"
+export http_proxy="http://127.0.0.1:8087/"
+export https_proxy="http://127.0.0.1:8087/"
 
 SHORT_PKG_VERSION = \
     $(word 1,$(subst ., ,$($(1)_VERSION))).$(word 2,$(subst ., ,$($(1)_VERSION)))
