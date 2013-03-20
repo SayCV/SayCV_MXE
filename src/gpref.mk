@@ -1,24 +1,24 @@
 # This file is part of MXE.
 # See index.html for further information.
 
-PKG             := m4
+PKG             := gpref
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 44b3ed8931f65cdab02aee66ae1e49724d2551a4
+$(PKG)_CHECKSUM := c1f1db32fb6598d6a93e6e88796a8632
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_PATCH_VERSION := 
-$(PKG)_PATCH_FILE    := m4-$($(PKG)_VERSION)-1-msys-1.0.17-patch.tar.lzma
+$(PKG)_PATCH_FILE    := 
 $(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
-$(PKG)_DEPS     := gpref
+$(PKG)_DEPS     := 
 
 $(PKG)_BUILD_SRC     := 1
 $(PKG)_DIR_SRC       := $(PKG_DIR)/$(PKG)
-$(PKG)_GIT_URL_GIT   := $(GIT_GNU_GIT)/$(PKG)
+$(PKG)_GIT_URL_GIT   := $(GIT_GNU_GIT)/$(PKG).git
 $(PKG)_GIT_URL_HTTP  := $(GIT_GNU_HTTP)/$(PKG).git
 $(PKG)_SRC_TYPE := git
 
 define $(PKG)_UPDATE
-    $(WGET) -q -O- 'http://ftp.gnu.org/gnu/m4' | \
+    $(WGET) -q -O- 'http://ftp.gnu.org/gnu/gpref' | \
     $(SED) -n 's,.*m4-\([0-9][^<]*\).*,\1,p' | \
     head -1
 endef
@@ -66,7 +66,7 @@ define $(PKG)_BUILD_CFG
         	--prefix='$(PREFIX)' \
         	--disable-assert \
         	--disable-rpath \
-        	CFLAGS=-D__MSYS__ &&  \
+        	&&  \
       cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
 endef
 
