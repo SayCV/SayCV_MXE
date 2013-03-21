@@ -68,8 +68,9 @@ define $(PKG)_BUILD_CFG
 endef
 
 define $(PKG)_BUILD_X
-  if ! test -f '$(PKG_DIR)/stamp_bootstrap_$(PKG)'; then \
-		cd '$(3)' && ./bootstrap; \
+  if ! test -f '$(3)/stamp_bootstrap_$(PKG)'; then \
+		cd '$(3)' && ./bootstrap && \
+		touch 'stamp_bootstrap_$(PKG)'; \
 	fi; \
 	\
   if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \

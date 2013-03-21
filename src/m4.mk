@@ -64,15 +64,23 @@ define $(PKG)_BUILD_CFG
         	--target='$(TARGET)' \
         	--build="`config.guess`" \
         	--prefix='$(PREFIX)' \
-        	--disable-assert \
-        	--disable-rpath \
-        	CFLAGS=-D__MSYS__ &&  \
+        	--enable-explicit-deps \
+	        --disable-glibtest \
+	        --disable-modules \
+	        --disable-cups \
+	        --disable-test-print-backend \
+	        --disable-gtk-doc \
+	        --disable-man \
+	        --with-included-immodules \
+	        --without-x \
+      	&&  \
       cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
 endef
 
 define $(PKG)_BUILD_X
-  if ! test -f '$(PKG_DIR)/stamp_bootstrap_$(PKG)'; then \
-		cd '$(3)' && ./bootstrap; \
+  if ! test -f '$(3)/stamp_bootstrap_$(PKG)'; then \
+		cd '$(3)' && ./bootstrap && \
+		touch 'stamp_bootstrap_$(PKG)'; \
 	fi; \
 	\
   if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
@@ -82,14 +90,14 @@ define $(PKG)_BUILD_X
   \
   if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make."; \
-      $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0 \
+      $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0 bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS= \
       && \
       cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
   fi; \
   \
   if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make install."; \
-      $(MAKE) -C '$(1).build' -j 1 install \
+      $(MAKE) -C '$(1).build' -j 1  install bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS= \
       && \
       cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
   fi

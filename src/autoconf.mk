@@ -3,7 +3,7 @@
 
 PKG             := autoconf
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 44b3ed8931f65cdab02aee66ae1e49724d2551a4
+$(PKG)_CHECKSUM := 562471cbcb0dd0fa42a76665acf0dbb68479b78a
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_PATCH_VERSION := 
@@ -71,8 +71,9 @@ define $(PKG)_BUILD_CFG
 endef
 
 define $(PKG)_BUILD_X
-  if ! test -f '$(PKG_DIR)/stamp_bootstrap_$(PKG)'; then \
-		cd '$(3)' && ./bootstrap; \
+  if ! test -f '$(3)/stamp_bootstrap_$(PKG)'; then \
+		cd '$(3)' && ./bootstrap && \
+		touch 'stamp_bootstrap_$(PKG)'; \
 	fi; \
 	\
   if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
