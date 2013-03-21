@@ -88,7 +88,7 @@ define $(PKG)_BUILD_X
   \
   if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make install."; \
-      $(MAKE) -C '$(1).build' -j 1 install-binPROGRAMS \
+      echo "$(MAKE) -C '$(1).build' -j 1 install install-binPROGRAMS" \
       && \
       cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
   fi
