@@ -19,7 +19,7 @@ LIBTOOL    := $(shell glibtool --help >/dev/null 2>&1 && echo g)libtool
 LIBTOOLIZE := $(shell glibtoolize --help >/dev/null 2>&1 && echo g)libtoolize
 PATCH      := $(shell gpatch --help >/dev/null 2>&1 && echo g)patch
 SED        := $(shell gsed --help >/dev/null 2>&1 && echo g)sed
-WGET       := wget --no-check-certificate --no-proxy \
+WGET       := wget --no-check-certificate \
                    --user-agent=$(shell wget --version | \
                    $(SED) -n 's,GNU \(Wget\) \([0-9.]*\).*,\1/\2,p')
 
@@ -260,7 +260,7 @@ update:
 	$(foreach PKG,$(PKGS),$(call UPDATE,$(PKG),$(shell $($(PKG)_UPDATE))))
 
 update-checksum-%:
-	if ! [ '$($*_CHECKSUM)' == "`$(call PKG_CHECKSUM,$*)`" ]; then \
+	if [ -z '$($*_CHECKSUM)' ] || ! [ '$($*_CHECKSUM)' == "`$(call PKG_CHECKSUM,$*)`" ]; then \
       $(call DOWNLOAD_PKG_ARCHIVE,$*); \
 	fi
 	@$(SED) -i 's/^\([^ ]*_CHECKSUM *:=\).*/\1 '"`$(call PKG_CHECKSUM,$*)`"'/' '$(TOP_DIR)/src/$*.mk'
