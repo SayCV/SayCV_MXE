@@ -90,14 +90,14 @@ define $(PKG)_BUILD_X
   \
   if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make."; \
-      $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0 bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS= \
+      $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0 \
       && \
       cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
   fi; \
   \
   if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make install."; \
-      $(MAKE) -C '$(1).build' -j 1  install bin_PROGRAMS= sbin_PROGRAMS= noinst_PROGRAMS= \
+      $(MAKE) -C '$(1).build' -j 1  install \
       && \
       cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
   fi

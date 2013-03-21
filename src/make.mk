@@ -49,9 +49,10 @@ define $(PKG)_BUILD
         $(call $(PKG)_SRC_GET,$(1),$(2)); \
     fi; \
     echo 'SayCV_MXE:$(PKG):Building DEVEL src.'; \
-    $(call $(PKG)_BUILD_X,$(1),$(2),$($(PKG)_DIR_SRC)); \
+    $(call $(PKG)_BUILD_X,$(1),$(2),../../../pkg/$(PKG)); \
 	else \
 	  echo 'SayCV_MXE:$(PKG):Build from RELEASE src.'; \
+	  $(call $(PKG)_BUILD_X,$(1),$(2),$(1)); \
 	fi
 endef
 
@@ -87,7 +88,7 @@ define $(PKG)_BUILD_X
   \
   if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make install."; \
-      $(MAKE) -C '$(1).build' -j 1 install \
+      $(MAKE) -C '$(1).build' -j 1 install-binPROGRAMS \
       && \
       cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
   fi
