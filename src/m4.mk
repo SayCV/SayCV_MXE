@@ -9,7 +9,7 @@ $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_PATCH_VERSION := 
 $(PKG)_PATCH_FILE    := m4-$($(PKG)_VERSION)-1-msys-1.0.17-patch.tar.lzma
 $(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
-$(PKG)_DEPS     := gpref
+$(PKG)_DEPS     := gperf
 
 $(PKG)_BUILD_SRC     := 1
 $(PKG)_DIR_SRC       := $(PKG_DIR)/$(PKG)

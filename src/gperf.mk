@@ -1,7 +1,7 @@
 # This file is part of MXE.
 # See index.html for further information.
 
-PKG             := gpref
+PKG             := gperf
 $(PKG)_IGNORE   :=
 $(PKG)_CHECKSUM := c1f1db32fb6598d6a93e6e88796a8632
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
@@ -13,12 +13,12 @@ $(PKG)_DEPS     :=
 
 $(PKG)_BUILD_SRC     := 1
 $(PKG)_DIR_SRC       := $(PKG_DIR)/$(PKG)
-$(PKG)_GIT_URL_GIT   := $(GIT_GNU_GIT)/$(PKG).git
+$(PKG)_GIT_URL_GIT   := $(GIT_GNU_GIT)/$(PKG)
 $(PKG)_GIT_URL_HTTP  := $(GIT_GNU_HTTP)/$(PKG).git
 $(PKG)_SRC_TYPE := git
 
 define $(PKG)_UPDATE
-    $(WGET) -q -O- 'http://ftp.gnu.org/gnu/gpref' | \
+    $(WGET) -q -O- 'http://ftp.gnu.org/gnu/gperf' | \
     $(SED) -n 's,.*m4-\([0-9][^<]*\).*,\1,p' | \
     head -1
 endef
