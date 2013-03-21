@@ -1,6 +1,6 @@
-diff -rup make-3.81/implicit.c make-3.81-new/implicit.c
---- old/make-3.81/implicit.c	Wed May 28 23:57:40 2008
-+++ new/make-3.81/implicit.c	Wed May 28 23:30:55 2008
+diff -rup implicit.c make-3.81-new/implicit.c
+--- old/implicit.c	Wed May 28 23:57:40 2008
++++ new/implicit.c	Wed May 28 23:30:55 2008
 @@ -27,7 +27,8 @@ Foundation, Inc., 51 Franklin St, Fifth 
  
  static int
@@ -89,9 +89,9 @@ diff -rup make-3.81/implicit.c make-3.81-new/implicit.c
                  }
  
                /* A dependency of this rule does not exist. Therefore,
-diff -rup make-3.81/make.h make-3.81-new/make.h
---- old/make-3.81/make.h	Wed May 28 23:57:40 2008
-+++ new/make-3.81/make.h	Wed May 28 23:30:55 2008
+diff -rup make.h make-3.81-new/make.h
+--- old/make.h	Wed May 28 23:57:40 2008
++++ new/make.h	Wed May 28 23:30:55 2008
 @@ -459,7 +459,7 @@ extern void install_default_implicit_rul
  
  extern void build_vpath_lists PARAMS ((void));
@@ -101,9 +101,9 @@ diff -rup make-3.81/make.h make-3.81-new/make.h
  extern int gpath_search PARAMS ((char *file, unsigned int len));
  
  extern void construct_include_path PARAMS ((char **arg_dirs));
-diff -rup make-3.81/remake.c make-3.81-new/remake.c
---- old/make-3.81/remake.c	Wed May 28 23:57:40 2008
-+++ new/make-3.81/remake.c	Wed May 28 23:30:55 2008
+diff -rup remake.c make-3.81-new/remake.c
+--- old/remake.c	Wed May 28 23:57:40 2008
++++ new/remake.c	Wed May 28 23:30:55 2008
 @@ -39,7 +39,7 @@ Foundation, Inc., 51 Franklin St, Fifth 
  #include <io.h>
  #endif
@@ -155,9 +155,9 @@ diff -rup make-3.81/remake.c make-3.81-new/remake.c
  	{
  	  *lib = file;
  	  return 1;
-diff -rup make-3.81/vpath.c make-3.81-new/vpath.c
---- old/make-3.81/vpath.c	Wed May 28 23:57:40 2008
-+++ new/make-3.81/vpath.c	Wed May 28 23:51:23 2008
+diff -rup vpath.c make-3.81-new/vpath.c
+--- old/vpath.c	Wed May 28 23:57:40 2008
++++ new/vpath.c	Wed May 28 23:51:23 2008
 @@ -48,7 +48,7 @@ static struct vpath *general_vpath;
  
  static struct vpath *gpaths;

@@ -13,8 +13,8 @@
         sh_chars_sh for Windows platforms that emulate Unix.
 
 
---- old/make-3.81/configure.in	2006-04-01 12:36:40.000000000 +0300
-+++ new/make-3.81/configure.in	2006-08-18 21:12:32.828125000 +0300
+--- old/configure.in	2006-04-01 12:36:40.000000000 +0300
++++ new/configure.in	2006-08-18 21:12:32.828125000 +0300
 @@ -384,6 +384,8 @@
      ;;
  esac
@@ -25,8 +25,8 @@
  
  MAINT_MAKEFILE=/dev/null
 
---- old/make-3.81/make.h	2006-02-16 03:54:43.000000000 +0200
-+++ new/make-3.81/make.h	2006-08-18 21:12:32.859375000 +0300
+--- old/make.h	2006-02-16 03:54:43.000000000 +0200
++++ new/make.h	2006-08-18 21:12:32.859375000 +0300
 @@ -347,12 +347,14 @@
  #define S_(msg1,msg2,num)   ngettext (msg1,msg2,num)
  
@@ -49,8 +49,8 @@
  
  /* This is needed for getcwd() and chdir().  */
 
---- old/make-3.81/config/dospaths.m4	2006-03-10 06:20:45.000000000 +0200
-+++ new/make-3.81/config/dospaths.m4	2006-08-18 21:12:32.859375000 +0300
+--- old/config/dospaths.m4	2006-03-10 06:20:45.000000000 +0200
++++ new/config/dospaths.m4	2006-08-18 21:12:32.859375000 +0300
 @@ -22,7 +22,7 @@
      AC_CACHE_CHECK([whether system uses MSDOS-style paths], [ac_cv_dos_paths],
        [
@@ -61,8 +61,8 @@
  #endif
  ],
 
---- old/make-3.81/job.c	2006-03-20 07:03:04.000000000 +0200
-+++ new/make-3.81/job.c	2006-08-19 09:25:07.687500000 +0300
+--- old/job.c	2006-03-20 07:03:04.000000000 +0200
++++ new/job.c	2006-08-19 09:25:07.687500000 +0300
 @@ -2307,6 +2307,12 @@ construct_command_argv_internal (char *l
                               "login", "logout", "read", "readonly", "set",
                               "shift", "switch", "test", "times", "trap",

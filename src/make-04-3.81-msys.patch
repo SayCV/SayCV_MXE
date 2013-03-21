@@ -1,6 +1,6 @@
-diff -urN old/make-3.81/Makefile.am new/make-3.81/Makefile.am
---- old/make-3.81/Makefile.am	2006-04-01 02:36:40.000000000 -0400
-+++ new/make-3.81/Makefile.am	2009-11-07 19:23:03.012300000 -0500
+diff -urN old/Makefile.am new/Makefile.am
+--- old/Makefile.am	2006-04-01 02:36:40.000000000 -0400
++++ new/Makefile.am	2009-11-07 19:23:03.012300000 -0500
 @@ -172,10 +172,17 @@
  	    case `cd $(srcdir); pwd` in `pwd`) : ;; \
  	      *) test -d tests || mkdir tests; \
@@ -21,9 +21,9 @@ diff -urN old/make-3.81/Makefile.am new/make-3.81/Makefile.am
  	    esac; \
  	    echo "cd tests && $(PERL) ./run_make_tests.pl -make ../make$(EXEEXT) $(MAKETESTFLAGS)"; \
  	    cd tests && $(PERL) ./run_make_tests.pl -make ../make$(EXEEXT) $(MAKETESTFLAGS); \
-diff -urN old/make-3.81/configure.in new/make-3.81/configure.in
---- old/make-3.81/configure.in	2009-11-07 19:22:43.044300000 -0500
-+++ new/make-3.81/configure.in	2009-11-07 19:37:43.011500000 -0500
+diff -urN old/configure.in new/configure.in
+--- old/configure.in	2009-11-07 19:22:43.044300000 -0500
++++ new/configure.in	2009-11-07 19:37:43.011500000 -0500
 @@ -40,9 +40,8 @@
  
  # Specialized system macros
