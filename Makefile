@@ -48,8 +48,8 @@ unexport OBJC_INCLUDE_PATH PKG_CONFIG QMAKESPEC RANLIB STRIP
 
 # export http_proxy="http://username:password@127.0.0.1:9999/"
 # export https_proxy="http://username:password@127.0.0.1:9999/"
-export http_proxy="http://127.0.0.1:8087/"
-export https_proxy="http://127.0.0.1:8087/"
+export http_proxy=http://127.0.0.1:8087/
+export https_proxy=http://127.0.0.1:8087/
 
 SHORT_PKG_VERSION = \
     $(word 1,$(subst ., ,$($(1)_VERSION))).$(word 2,$(subst ., ,$($(1)_VERSION)))
