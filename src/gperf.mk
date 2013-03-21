@@ -11,7 +11,7 @@ $(PKG)_PATCH_FILE    :=
 $(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
 $(PKG)_DEPS     := 
 
-$(PKG)_BUILD_SRC     := 1
+$(PKG)_BUILD_SRC     := 0
 $(PKG)_DIR_SRC       := $(PKG_DIR)/$(PKG)
 $(PKG)_GIT_URL_GIT   := $(GIT_GNU_GIT)/$(PKG)
 $(PKG)_GIT_URL_HTTP  := $(GIT_GNU_HTTP)/$(PKG).git
