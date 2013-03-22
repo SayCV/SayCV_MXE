@@ -9,6 +9,7 @@ $(PKG)_FILE1     := $(PKG)-$($(PKG)_VERSION)-5-mingw32-src.tar.lzma
 $(PKG)_FILE2     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL1      := $(SOURCEFORGE_MIRROR)/project/mingw/MinGW/Extension/$(PKG)/$(PKG)-$($(PKG)_VERSION)-mingw32/$($(PKG)_FILE1)
 $(PKG)_URL2      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE2)
+$(PKG)_FILE     := $($(PKG)_FILE2)
 $(PKG)_URL      := $($(PKG)_URL2)
 $(PKG)_DEPS     := binutils gcc gettext
  
