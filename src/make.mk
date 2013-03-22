@@ -7,7 +7,7 @@ $(PKG)_CHECKSUM := 92d1b87a30d1c9482e52fb4a68e8a355e7946331
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
 $(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
-$(PKG)_DEPS     := 
+$(PKG)_DEPS     := binutils gcc gettext
  
 $(PKG)_BUILD_SRC     := 0
 $(PKG)_DIR_SRC       := $(PKG_DIR)/$(PKG)
@@ -62,15 +62,15 @@ define $(PKG)_BUILD_CFG
         	--target='$(TARGET)' \
         	--build="`config.guess`" \
         	--prefix='$(PREFIX)' \
-        	--disable-assert \
-        	--disable-rpath \
+          --enable-case-insensitive-file-system \
+          --disable-job-server \
         	&&  \
       cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
 endef
 
 define $(PKG)_BUILD_X
   if ! test -f '$(3)/stamp_bootstrap_$(PKG)'; then \
-		cd '$(3)' && ./bootstrap && \
+		cd '$(3)' && ./autoreconf && \
 		touch 'stamp_bootstrap_$(PKG)'; \
 	fi; \
 	\
