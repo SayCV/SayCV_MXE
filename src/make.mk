@@ -3,7 +3,7 @@
 
 PKG             := make
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 586999d4574a0d1ff7c3ecfd9032ae9d68bf23f1
+$(PKG)_CHECKSUM := 92d1b87a30d1c9482e52fb4a68e8a355e7946331
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE1     := $(PKG)-$($(PKG)_VERSION)-5-mingw32-src.tar.lzma
 $(PKG)_FILE2     := $(PKG)-$($(PKG)_VERSION).tar.gz
