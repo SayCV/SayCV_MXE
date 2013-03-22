@@ -3,10 +3,13 @@
 
 PKG             := make
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 92d1b87a30d1c9482e52fb4a68e8a355e7946331
+$(PKG)_CHECKSUM := 586999d4574a0d1ff7c3ecfd9032ae9d68bf23f1
 $(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
-$(PKG)_FILE     := $(PKG)-$($(PKG)_VERSION).tar.gz
-$(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
+$(PKG)_FILE1     := $(PKG)-$($(PKG)_VERSION)-5-mingw32-src.tar.lzma
+$(PKG)_FILE2     := $(PKG)-$($(PKG)_VERSION).tar.gz
+$(PKG)_URL1      := $(SOURCEFORGE_MIRROR)/project/mingw/MinGW/Extension/$(PKG)/$(PKG)-$($(PKG)_VERSION)-mingw32/$($(PKG)_FILE1)
+$(PKG)_URL2      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE2)
+$(PKG)_URL      := $($(PKG)_URL2)
 $(PKG)_DEPS     := binutils gcc gettext
  
 $(PKG)_BUILD_SRC     := 0
@@ -16,7 +19,7 @@ $(PKG)_GIT_URL_HTTP  := $(GIT_GNU_HTTP)/$(PKG).git
 $(PKG)_SRC_TYPE := git
 
 define $(PKG)_UPDATE
-    $(WGET) -q -O- 'http://ftp.gnu.org/gnu/m4' | \
+    $(WGET) -q -O- 'http://ftp.gnu.org/gnu/make' | \
     $(SED) -n 's,.*m4-\([0-9][^<]*\).*,\1,p' | \
     head -1
 endef
@@ -57,15 +60,15 @@ define $(PKG)_BUILD
 endef
 
 define $(PKG)_BUILD_CFG
-    	mkdir -p '$(1).build'; \
-	    cd    '$(1).build' && '$(3)/configure' \
+    	mkdir -p '$(1)'; \
+	    cd    '$(3)' && './configure' \
         	--target='$(TARGET)' \
         	--build="`config.guess`" \
         	--prefix='$(PREFIX)' \
           --enable-case-insensitive-file-system \
           --disable-job-server \
         	&&  \
-      cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
+      cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
 endef
 
 define $(PKG)_BUILD_X
@@ -74,22 +77,22 @@ define $(PKG)_BUILD_X
 		touch 'stamp_bootstrap_$(PKG)'; \
 	fi; \
 	\
-  if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+  if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: Configure."; \
       $(call $(PKG)_BUILD_CFG,$(1),$(2),$(3)); \
   fi; \
   \
-  if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
+  if ! test -f '$(1)/stamp_make_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make."; \
-      $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0 \
+      $(MAKE) -C '$(1)' -j '$(JOBS)' V=0 \
       && \
-      cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
+      cd '$(1)' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
   fi; \
   \
-  if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
+  if ! test -f '$(1)/stamp_install_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make install."; \
-      echo "$(MAKE) -C '$(1).build' -j 1 install install-binPROGRAMS" \
+      $(MAKE) -C '$(1)' -j 1 install \
       && \
-      cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
+      cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
   fi
 endef

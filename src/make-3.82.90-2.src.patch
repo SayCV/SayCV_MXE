@@ -1,5 +1,5 @@
---- origsrc/make/configure.in	2012-03-05 09:10:42 -0500
-+++ src/make/configure.in	2012-09-01 20:31:36 -0400
+--- origsrc/configure.in	2012-03-05 09:10:42 -0500
++++ src/configure.in	2012-09-01 20:31:36 -0400
 @@ -168,18 +168,18 @@ AC_FUNC_VPRINTF
  AC_FUNC_CLOSEDIR_VOID
  
@@ -27,12 +27,12 @@
  
  AS_IF([test "$have_guile" = yes],
        [AC_DEFINE([HAVE_GUILE], [1], [Embed GNU Guile support])])
---- origsrc/make/doc/make.info	1969-12-31 19:00:00 -0500
-+++ src/make/doc/make.info	2012-09-01 20:38:47 -0400
+--- origsrc/doc/make.info	1969-12-31 19:00:00 -0500
++++ src/doc/make.info	2012-09-01 20:38:47 -0400
 @@ -0,0 +1,194 @@
-+This is /src/make/make-3.82.90-2/src/make/doc/make.info, produced by
++This is /src/make-3.82.90-2/src/doc/make.info, produced by
 +makeinfo version 4.13 from
-+/src/make/make-3.82.90-2/src/make/doc/make.texi.
++/src/make-3.82.90-2/src/doc/make.texi.
 +
 +This file documents the GNU `make' utility, which determines
 +automatically which pieces of a large program need to be recompiled,
@@ -224,12 +224,12 @@
 +Node: Name Index543916
 +
 +End Tag Table
---- origsrc/make/doc/make.info-1	1969-12-31 19:00:00 -0500
-+++ src/make/doc/make.info-1	2012-09-01 20:38:47 -0400
+--- origsrc/doc/make.info-1	1969-12-31 19:00:00 -0500
++++ src/doc/make.info-1	2012-09-01 20:38:47 -0400
 @@ -0,0 +1,7050 @@
-+This is /src/make/make-3.82.90-2/src/make/doc/make.info, produced by
++This is /src/make-3.82.90-2/src/doc/make.info, produced by
 +makeinfo version 4.13 from
-+/src/make/make-3.82.90-2/src/make/doc/make.texi.
++/src/make-3.82.90-2/src/doc/make.texi.
 +
 +This file documents the GNU `make' utility, which determines
 +automatically which pieces of a large program need to be recompiled,
@@ -648,7 +648,7 @@
 +
 +or use our Web-based project management tool, at:
 +
-+         http://savannah.gnu.org/projects/make/
++         http://savannah.gnu.org/projects/
 +
 +In addition to the information above, please be careful to include the
 +version number of `make' you are using.  You can get this information
@@ -7277,12 +7277,12 @@
 +correct them all before the next attempt to compile.  This is why Emacs'
 +`M-x compile' command passes the `-k' flag by default.
 +
---- origsrc/make/doc/make.info-2	1969-12-31 19:00:00 -0500
-+++ src/make/doc/make.info-2	2012-09-01 20:38:47 -0400
+--- origsrc/doc/make.info-2	1969-12-31 19:00:00 -0500
++++ src/doc/make.info-2	2012-09-01 20:38:47 -0400
 @@ -0,0 +1,5486 @@
-+This is /src/make/make-3.82.90-2/src/make/doc/make.info, produced by
++This is /src/make-3.82.90-2/src/doc/make.info, produced by
 +makeinfo version 4.13 from
-+/src/make/make-3.82.90-2/src/make/doc/make.texi.
++/src/make-3.82.90-2/src/doc/make.texi.
 +
 +This file documents the GNU `make' utility, which determines
 +automatically which pieces of a large program need to be recompiled,
@@ -12766,22 +12766,22 @@
 +* | (automatic variable):                Automatic Variables. (line  69)
 +
 +
---- origsrc/make/doc/stamp-vti	1969-12-31 19:00:00 -0500
-+++ src/make/doc/stamp-vti	2012-09-01 20:38:47 -0400
+--- origsrc/doc/stamp-vti	1969-12-31 19:00:00 -0500
++++ src/doc/stamp-vti	2012-09-01 20:38:47 -0400
 @@ -0,0 +1,4 @@
 +@set UPDATED 3 March 2012
 +@set UPDATED-MONTH March 2012
 +@set EDITION 3.82.90
 +@set VERSION 3.82.90
---- origsrc/make/doc/version.texi	1969-12-31 19:00:00 -0500
-+++ src/make/doc/version.texi	2012-09-01 20:38:46 -0400
+--- origsrc/doc/version.texi	1969-12-31 19:00:00 -0500
++++ src/doc/version.texi	2012-09-01 20:38:46 -0400
 @@ -0,0 +1,4 @@
 +@set UPDATED 3 March 2012
 +@set UPDATED-MONTH March 2012
 +@set EDITION 3.82.90
 +@set VERSION 3.82.90
---- origsrc/make/po/be.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/be.po	2012-09-01 20:37:57 -0400
+--- origsrc/po/be.po	1969-12-31 19:00:00 -0500
++++ src/po/be.po	2012-09-01 20:37:57 -0400
 @@ -0,0 +1,2095 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) 2002, 2003 Free Software Foundation, Inc.
@@ -14878,8 +14878,8 @@
 +
 +#~ msgid "# No variables."
 +#~ msgstr "# –ù—è–º–∞ –ø–µ—Ä–∞–º–µ–Ω–Ω—ã—Ö."
---- origsrc/make/po/cs.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/cs.po	2012-09-01 20:37:57 -0400
+--- origsrc/po/cs.po	1969-12-31 19:00:00 -0500
++++ src/po/cs.po	2012-09-01 20:37:57 -0400
 @@ -0,0 +1,2205 @@
 +# Czech translation of make.
 +# Copyright (C) 2010 Free Software Foundation, Inc.
@@ -17086,8 +17086,8 @@
 +#~ "\n"
 +#~ "# statistika ha≈°ovac√≠ tabulky ke≈°e ≈ôetƒõzc≈Ø:\n"
 +#~ "# "
---- origsrc/make/po/da.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/da.po	2012-09-01 20:37:58 -0400
+--- origsrc/po/da.po	1969-12-31 19:00:00 -0500
++++ src/po/da.po	2012-09-01 20:37:58 -0400
 @@ -0,0 +1,2241 @@
 +# Danish messages for make
 +# Copyright (C) 2001 Free Software Foundation, Inc.
@@ -19330,8 +19330,8 @@
 +
 +#~ msgid "# average of %d.%d variables per bucket, max %u in one bucket.\n"
 +#~ msgstr "# %d.%d variabler per spand i gennemsnit, maks. %u i en spand.\n"
---- origsrc/make/po/de.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/de.po	2012-09-01 20:37:58 -0400
+--- origsrc/po/de.po	1969-12-31 19:00:00 -0500
++++ src/po/de.po	2012-09-01 20:37:58 -0400
 @@ -0,0 +1,2319 @@
 +# German message translation file for GNU make
 +# Copyright (C) 1996, 1997, 2002 Free Software Foundation, Inc.
@@ -21652,8 +21652,8 @@
 +
 +#~ msgid "the `word' function takes a positive index argument"
 +#~ msgstr "Die ªword´-Funktion erwartet als Argument einen positiven Index"
---- origsrc/make/po/es.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/es.po	2012-09-01 20:37:59 -0400
+--- origsrc/po/es.po	1969-12-31 19:00:00 -0500
++++ src/po/es.po	2012-09-01 20:37:59 -0400
 @@ -0,0 +1,3052 @@
 +# Mensajes en espaÒol para GNU make.
 +# Copyright (C) 1996, 2001, 2011 Free Software Foundation, Inc.
@@ -24707,8 +24707,8 @@
 +
 +#~ msgid "Signal %d"
 +#~ msgstr "SeÒal %d"
---- origsrc/make/po/fi.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/fi.po	2012-09-01 20:37:59 -0400
+--- origsrc/po/fi.po	1969-12-31 19:00:00 -0500
++++ src/po/fi.po	2012-09-01 20:37:59 -0400
 @@ -0,0 +1,2196 @@
 +# Finnish messages for make.
 +# Copyright (C) 2005 Free Software Foundation, Inc.
@@ -26906,8 +26906,8 @@
 +
 +#~ msgid "Syntax error, still inside '\"'\n"
 +#~ msgstr "Syntaksivirhe, edelleen \":n sis√§ll√§\n"
---- origsrc/make/po/fr.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/fr.po	2012-09-01 20:38:00 -0400
+--- origsrc/po/fr.po	1969-12-31 19:00:00 -0500
++++ src/po/fr.po	2012-09-01 20:38:00 -0400
 @@ -0,0 +1,2490 @@
 +# Messages franÁais pour make.
 +# Copyright © 2010 Free Software Foundation, Inc.
@@ -29399,8 +29399,8 @@
 +
 +#~ msgid "Signal %d"
 +#~ msgstr "Signal %d"
---- origsrc/make/po/ga.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/ga.po	2012-09-01 20:38:00 -0400
+--- origsrc/po/ga.po	1969-12-31 19:00:00 -0500
++++ src/po/ga.po	2012-09-01 20:38:00 -0400
 @@ -0,0 +1,2207 @@
 +# Irish translations for make.
 +# Copyright (C) 2005 Free Software Foundation, Inc.
@@ -31609,8 +31609,8 @@
 +
 +#~ msgid "-warning, CTRL-Y will leave sub-process(es) around.\n"
 +#~ msgstr "-rabhadh, f·gfaidh CTRL-Y fo-phrÛisis gan ghlanadh.\n"
---- origsrc/make/po/gl.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/gl.po	2012-09-01 20:38:01 -0400
+--- origsrc/po/gl.po	1969-12-31 19:00:00 -0500
++++ src/po/gl.po	2012-09-01 20:38:01 -0400
 @@ -0,0 +1,2490 @@
 +# Galician translation of GNU make.
 +# Copyright (C) 2000, 2002 Free Software Foundation, Inc.
@@ -34102,8 +34102,8 @@
 +
 +#~ msgid "write"
 +#~ msgstr "escritura"
---- origsrc/make/po/he.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/he.po	2012-09-01 20:38:01 -0400
+--- origsrc/po/he.po	1969-12-31 19:00:00 -0500
++++ src/po/he.po	2012-09-01 20:38:01 -0400
 @@ -0,0 +1,2255 @@
 +# Hebrew messages for GNU Make
 +# Copyright (C) 2002 Free Software Foundation, Inc.
@@ -36360,8 +36360,8 @@
 +
 +#~ msgid "# average of %d.%d variables per bucket, max %u in one bucket.\n"
 +#~ msgstr "# average of %d.%d variables per bucket, max %u in one bucket.\n"
---- origsrc/make/po/hr.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/hr.po	2012-09-01 20:38:02 -0400
+--- origsrc/po/hr.po	1969-12-31 19:00:00 -0500
++++ src/po/hr.po	2012-09-01 20:38:02 -0400
 @@ -0,0 +1,2277 @@
 +# Translation of GNU make.
 +# Copyright (C) 2002 Free Software Foundation, Inc.
@@ -38640,8 +38640,8 @@
 +
 +#~ msgid "# average of %d.%d variables per bucket, max %u in one bucket.\n"
 +#~ msgstr "# prosjeËno %d.%d varijabli po dæepu, maks. %u u jednom dæepu.\n"
---- origsrc/make/po/id.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/id.po	2012-09-01 20:38:03 -0400
+--- origsrc/po/id.po	1969-12-31 19:00:00 -0500
++++ src/po/id.po	2012-09-01 20:38:03 -0400
 @@ -0,0 +1,2295 @@
 +# Pesan Bahasa Indonesia untuk GNU make
 +# Copyright (C) 2006 Free Software Foundation, Inc.
@@ -40938,8 +40938,8 @@
 +#~ msgstr ""
 +#~ "# rata - rata dari %d.%d variabel per bucket, maksimal %u dalam satu "
 +#~ "bucket.\n"
---- origsrc/make/po/it.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/it.po	2012-09-01 20:38:03 -0400
+--- origsrc/po/it.po	1969-12-31 19:00:00 -0500
++++ src/po/it.po	2012-09-01 20:38:03 -0400
 @@ -0,0 +1,2221 @@
 +# Italian messages for GNU make.
 +# Copyright (C) 2009 Free Software Foundation, Inc.
@@ -43162,8 +43162,8 @@
 +#~ "\n"
 +#~ "# statistiche tabella hash di strcache:\n"
 +#~ "# "
---- origsrc/make/po/ja.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/ja.po	2012-09-01 20:38:04 -0400
+--- origsrc/po/ja.po	1969-12-31 19:00:00 -0500
++++ src/po/ja.po	2012-09-01 20:38:04 -0400
 @@ -0,0 +1,2226 @@
 +# Japanese message catalog for make 3.82
 +# Copyright (C) 2001, 2003, 2004, 2011 Free Software Foundation, Inc.
@@ -43185,7 +43185,7 @@
 +"MIME-Version: 1.0\n"
 +"Content-Type: text/plain; charset=EUC-JP\n"
 +"Content-Transfer-Encoding: 8bit\n"
-+"X-Poedit-Basepath: /factory/ja-po/make/make-3.82\n"
++"X-Poedit-Basepath: /factory/ja-po/make-3.82\n"
 +
 +#: ar.c:46
 +#, fuzzy, c-format
@@ -45391,8 +45391,8 @@
 +
 +#~ msgid "the `word' function takes a positive index argument"
 +#~ msgstr "`word' ¥ÿøÙ§œ»Û…È§Œ•§•Û•«•√•Ø•π∞˙øÙ§Ú§»§Í§ﬁ§π"
---- origsrc/make/po/ko.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/ko.po	2012-09-01 20:38:04 -0400
+--- origsrc/po/ko.po	1969-12-31 19:00:00 -0500
++++ src/po/ko.po	2012-09-01 20:38:04 -0400
 @@ -0,0 +1,2258 @@
 +# Korean messages for GNU make.
 +# Copyright (C) 1996, 2001 Free Software Foundation, Inc.
@@ -47652,8 +47652,8 @@
 +
 +#~ msgid "# average of %d.%d variables per bucket, max %u in one bucket.\n"
 +#~ msgstr "# πˆ≈∂¥Á ∆Ú±’ %d.%d∞≥¿« ∫Øºˆ, «— ∞≥¿« πˆ≈∂ø° √÷¥Î %u∞≥.\n"
---- origsrc/make/po/lt.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/lt.po	2012-09-01 20:38:05 -0400
+--- origsrc/po/lt.po	1969-12-31 19:00:00 -0500
++++ src/po/lt.po	2012-09-01 20:38:05 -0400
 @@ -0,0 +1,2080 @@
 +# translation of make-3.81 to Lithuanian
 +# Copyright (C) 2008 Free Software Foundation, Inc.
@@ -49735,8 +49735,8 @@
 +#, fuzzy
 +#~ msgid "invalid `override' directive"
 +#~ msgstr "netaisyklinga ‚Äûoverride‚Äú direktyva"
---- origsrc/make/po/make.pot	1969-12-31 19:00:00 -0500
-+++ src/make/po/make.pot	2012-09-01 20:37:56 -0400
+--- origsrc/po/make.pot	1969-12-31 19:00:00 -0500
++++ src/po/make.pot	2012-09-01 20:37:56 -0400
 @@ -0,0 +1,2020 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) YEAR Free Software Foundation, Inc.
@@ -51758,8 +51758,8 @@
 +"# General ('VPATH' variable) search path:\n"
 +"# "
 +msgstr ""
---- origsrc/make/po/nl.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/nl.po	2012-09-01 20:38:05 -0400
+--- origsrc/po/nl.po	1969-12-31 19:00:00 -0500
++++ src/po/nl.po	2012-09-01 20:38:05 -0400
 @@ -0,0 +1,2222 @@
 +# Dutch translations for GNU make.
 +# Copyright (C) 2010 Free Software Foundation, Inc.
@@ -53983,8 +53983,8 @@
 +
 +#~ msgid "-warning, CTRL-Y will leave sub-process(es) around.\n"
 +#~ msgstr "-waarschuwing: CTRL-Y zal subproces(sen) achterlaten.\n"
---- origsrc/make/po/pl.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/pl.po	2012-09-01 20:38:06 -0400
+--- origsrc/po/pl.po	1969-12-31 19:00:00 -0500
++++ src/po/pl.po	2012-09-01 20:38:06 -0400
 @@ -0,0 +1,2177 @@
 +# Polish translation for GNU make.
 +# Copyright (C) 1996, 2002, 2005, 2006, 2010 Free Software Foundation, Inc.
@@ -56163,8 +56163,8 @@
 +#~ "\n"
 +#~ "# statystyki tablic haszuj±cych strcache:\n"
 +#~ "# "
---- origsrc/make/po/pt_BR.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/pt_BR.po	2012-09-01 20:38:06 -0400
+--- origsrc/po/pt_BR.po	1969-12-31 19:00:00 -0500
++++ src/po/pt_BR.po	2012-09-01 20:38:06 -0400
 @@ -0,0 +1,2199 @@
 +# translation of make-3.80.po to portugues
 +# Mensagem do GNU make em PortuguÍs (Brasil)
@@ -58365,8 +58365,8 @@
 +
 +#~ msgid "target `%s' leaves prerequisite pattern empty"
 +#~ msgstr "O alvo `%s' deixou o prÈ-requisito padr„o vazio"
---- origsrc/make/po/ru.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/ru.po	2012-09-01 20:38:07 -0400
+--- origsrc/po/ru.po	1969-12-31 19:00:00 -0500
++++ src/po/ru.po	2012-09-01 20:38:07 -0400
 @@ -0,0 +1,2217 @@
 +# Translation of make messages to Russian
 +# Copyright (C) 1998, 1999, 2000, 2001, 2002, 2009 Free Software Foundation, Inc.
@@ -60585,8 +60585,8 @@
 +
 +#~ msgid "-warning, CTRL-Y will leave sub-process(es) around.\n"
 +#~ msgstr "-–ø—Ä–µ–¥—É–ø—Ä–µ–∂–¥–µ–Ω–∏–µ, –ø–æ—Å–ª–µ CTRL-Y –æ—Å—Ç–∞–Ω—É—Ç—Å—è —Å—É–±-–ø—Ä–æ—Ü–µ—Å—Å—ã.\n"
---- origsrc/make/po/sv.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/sv.po	2012-09-01 20:38:08 -0400
+--- origsrc/po/sv.po	1969-12-31 19:00:00 -0500
++++ src/po/sv.po	2012-09-01 20:38:08 -0400
 @@ -0,0 +1,2174 @@
 +# Swedish messages translation of make
 +# Copyright © 2002, 2007, 2011 Free Software Foundation, Inc.
@@ -62762,8 +62762,8 @@
 +#~ "\n"
 +#~ "# statistik fˆr strcache-hashtabell:\n"
 +#~ "# "
---- origsrc/make/po/tr.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/tr.po	2012-09-01 20:38:08 -0400
+--- origsrc/po/tr.po	1969-12-31 19:00:00 -0500
++++ src/po/tr.po	2012-09-01 20:38:08 -0400
 @@ -0,0 +1,2280 @@
 +# Turkish translations for GNU Make messages.
 +# Copyright (C) 2006 Free Software Foundation, Inc.
@@ -65045,8 +65045,8 @@
 +
 +#~ msgid "# average of %d.%d variables per bucket, max %u in one bucket.\n"
 +#~ msgstr "# her tabloda %d.%d deƒüi≈üken ortalamasƒ±, bir tabloda en √ßok %u\n"
---- origsrc/make/po/uk.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/uk.po	2012-09-01 20:38:09 -0400
+--- origsrc/po/uk.po	1969-12-31 19:00:00 -0500
++++ src/po/uk.po	2012-09-01 20:38:09 -0400
 @@ -0,0 +1,2285 @@
 +# ≈“≈ÀÃ¡ƒ make Œ¡ ’À“¡ßŒ”ÿÀ’.
 +# Copyright (C) 1997, 1998, 1999, 2000, 2001, 2002 Free Software Foundation, Inc.
@@ -67333,8 +67333,8 @@
 +
 +#~ msgid "directory `%s'\n"
 +#~ msgstr "À¡‘¡Ãœ« \"%s\"\n"
---- origsrc/make/po/vi.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/vi.po	2012-09-01 20:38:09 -0400
+--- origsrc/po/vi.po	1969-12-31 19:00:00 -0500
++++ src/po/vi.po	2012-09-01 20:38:09 -0400
 @@ -0,0 +1,2227 @@
 +# Vietnamese translation for Make.
 +# Copyright ¬© 2010 Free Software Foundation, Inc.
@@ -69563,8 +69563,8 @@
 +
 +#~ msgid "Resetting make for single job mode."
 +#~ msgstr "ƒêang l·∫≠p l·∫°i tr√¨nh make cho ch·∫ø ƒë·ªô c√¥ng vi·ªác ƒë∆°n."
---- origsrc/make/po/zh_CN.po	1969-12-31 19:00:00 -0500
-+++ src/make/po/zh_CN.po	2012-09-01 20:38:10 -0400
+--- origsrc/po/zh_CN.po	1969-12-31 19:00:00 -0500
++++ src/po/zh_CN.po	2012-09-01 20:38:10 -0400
 @@ -0,0 +1,2248 @@
 +# SOME DESCRIPTIVE TITLE.
 +# Copyright (C) 2002 Free Software Foundation, Inc.
