@@ -11,7 +11,7 @@ $(PKG)_PATCH_FILE    := m4-$($(PKG)_VERSION)-1-msys-1.0.17-patch.tar.lzma
 $(PKG)_URL      := $(PKG_GNU)/$(PKG)/$($(PKG)_FILE)
 $(PKG)_DEPS     := gperf
 
-$(PKG)_BUILD_SRC     := 1
+$(PKG)_BUILD_SRC     := 0
 $(PKG)_DIR_SRC       := $(PKG_DIR)/$(PKG)
 $(PKG)_GIT_URL_GIT   := $(GIT_GNU_GIT)/$(PKG)
 $(PKG)_GIT_URL_HTTP  := $(GIT_GNU_HTTP)/$(PKG).git
@@ -51,7 +51,7 @@ define $(PKG)_BUILD
         $(call $(PKG)_SRC_GET,$(1),$(2)); \
     fi; \
     echo 'SayCV_MXE:$(PKG):Building DEVEL src.'; \
-    $(call $(PKG)_BUILD_X,$(1),$(2),$($(PKG)_DIR_SRC)); \
+    $(call $(PKG)_BUILD_X,$(1),$(2),../../../pkg/$(PKG)); \
 	else \
 	  echo 'SayCV_MXE:$(PKG):Build from RELEASE src.'; \
 	  $(call $(PKG)_BUILD_X,$(1),$(2),$(1)); \
@@ -59,8 +59,8 @@ define $(PKG)_BUILD
 endef
 
 define $(PKG)_BUILD_CFG
-    	mkdir -p '$(1).build'; \
-	    cd    '$(1).build' && '$(3)/configure' \
+    	mkdir -p '$(1)'; \
+	    cd    '$(3)' && './configure' \
         	--target='$(TARGET)' \
         	--build="`config.guess`" \
         	--prefix='$(PREFIX)' \
@@ -74,7 +74,7 @@ define $(PKG)_BUILD_CFG
 	        --with-included-immodules \
 	        --without-x \
       	&&  \
-      cd '$(1).build' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
+      cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
 endef
 
 define $(PKG)_BUILD_X
@@ -83,22 +83,22 @@ define $(PKG)_BUILD_X
 		touch 'stamp_bootstrap_$(PKG)'; \
 	fi; \
 	\
-  if ! test -f '$(1).build/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+  if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: Configure."; \
       $(call $(PKG)_BUILD_CFG,$(1),$(2),$(3)); \
   fi; \
   \
-  if ! test -f '$(1).build/stamp_make_$($(PKG)_SUBDIR)'; then \
+  if ! test -f '$(1)/stamp_make_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make."; \
-      $(MAKE) -C '$(1).build' -j '$(JOBS)' V=0 \
+      $(MAKE) -C '$(1)' -j '$(JOBS)' V=0 \
       && \
-      cd '$(1).build' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
+      cd '$(1)' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
   fi; \
   \
-  if ! test -f '$(1).build/stamp_install_$($(PKG)_SUBDIR)'; then \
+  if ! test -f '$(1)/stamp_install_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make install."; \
-      $(MAKE) -C '$(1).build' -j 1  install \
+      $(MAKE) -C '$(1)' -j 1  install \
       && \
-      cd '$(1).build' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
+      cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
   fi
 endef
