@@ -64,15 +64,6 @@ define $(PKG)_BUILD_CFG
         	--target='$(TARGET)' \
         	--build="`config.guess`" \
         	--prefix='$(PREFIX)' \
-        	--enable-explicit-deps \
-	        --disable-glibtest \
-	        --disable-modules \
-	        --disable-cups \
-	        --disable-test-print-backend \
-	        --disable-gtk-doc \
-	        --disable-man \
-	        --with-included-immodules \
-	        --without-x \
       	&&  \
       cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
 endef
