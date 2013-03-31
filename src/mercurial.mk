@@ -65,9 +65,9 @@ define $(PKG)_BUILD_CFG
       cd '$(1)' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
       cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
       cd '$(PREFIX)/bin' && rm -f hg; \
-      cd '$(PREFIX)/bin' &&  echo '@echo off' > 'hg'; \
-      cd '$(PREFIX)/bin' &&  echo 'shift' >> 'hg'; \
-      cd '$(PREFIX)/bin' &&  echo 'python D:\Python27\hg %0 %1 %2 %3 %4 %5 %6 %7 %8 %9' >> 'hg'
+      cd '$(PREFIX)/bin' &&  echo '@echo off' > 'hg.bat'; \
+      cd '$(PREFIX)/bin' &&  echo 'shift' >> 'hg.bat'; \
+      cd '$(PREFIX)/bin' &&  echo 'python D:\Python27\hg %0 %1 %2 %3 %4 %5 %6 %7 %8 %9' >> 'hg.bat'
 endef
 
 define $(PKG)_BUILD_X
