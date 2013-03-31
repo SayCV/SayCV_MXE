@@ -61,15 +61,13 @@ endef
 
 define $(PKG)_BUILD_CFG
     	mkdir -p '$(1)'; \
-	    cd    '$(3)' && python setup.py build -f -c mingw32 install -f \
-        	&&  \
       cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
       cd '$(1)' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
       cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
-      cd '$(PREFIX)' && rm -f hg; \
-      cd '$(PREFIX)' && echo '@echo off' > 'hg'; \
-      cd '$(PREFIX)' && echo 'shift' > 'hg'; \
-      cd '$(PREFIX)' && echo 'python D:\Python27\hg %0 %1 %2 %3 %4 %5 %6 %7 %8 %9' > 'hg'
+      cd '$(PREFIX)/bin' && rm -f hg; \
+      cd '$(PREFIX)/bin' &&  echo '@echo off' > 'hg'; \
+      cd '$(PREFIX)/bin' &&  echo 'shift' >> 'hg'; \
+      cd '$(PREFIX)/bin' &&  echo 'python D:\Python27\hg %0 %1 %2 %3 %4 %5 %6 %7 %8 %9' >> 'hg'
 endef
 
 define $(PKG)_BUILD_X
