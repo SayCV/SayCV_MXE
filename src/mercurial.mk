@@ -65,7 +65,11 @@ define $(PKG)_BUILD_CFG
         	&&  \
       cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
       cd '$(1)' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
-      cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'
+      cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
+      cd '$(PREFIX)' && rm -f hg; \
+      cd '$(PREFIX)' && echo '@echo off' > 'hg'; \
+      cd '$(PREFIX)' && echo 'shift' > 'hg'; \
+      cd '$(PREFIX)' && echo 'python D:\Python27\hg %0 %1 %2 %3 %4 %5 %6 %7 %8 %9' > 'hg'
 endef
 
 define $(PKG)_BUILD_X
@@ -73,7 +77,7 @@ define $(PKG)_BUILD_X
 		cd '$(3)' && ./autoreconf && \
 		touch 'stamp_bootstrap_$(PKG)'; \
 	fi; \
-	\
+	 \
   if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: Configure."; \
       $(call $(PKG)_BUILD_CFG,$(1),$(2),$(3)); \
@@ -81,14 +85,14 @@ define $(PKG)_BUILD_X
   \
   if ! test -f '$(1)/stamp_make_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make."; \
-      $(MAKE) -C '$(1)' -j '$(JOBS)' V=0 PREFIX='$(PREFIX)' \
+      $(MAKE) -C '$(1)' -j '$(JOBS)' all COMPILER=mingw32 PREFIX='$(PREFIX)' \
       && \
       cd '$(1)' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
   fi; \
   \
   if ! test -f '$(1)/stamp_install_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: make install."; \
-      $(MAKE) -C '$(1)' -j 1 install PREFIX='$(PREFIX)' \
+      $(MAKE) -C '$(1)' -j 1 install COMPILER=mingw32 PREFIX='$(PREFIX)' \
       && \
       cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'; \
   fi
