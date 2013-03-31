@@ -212,8 +212,8 @@ build-only-$(1):
 #	    rm -rf   '$(2)'
 	    mkdir -p '$(2)'
 	    if ! test -f '$(2)/stamp_unpack_$($(1)_SUBDIR)'; then \
-	      cd '$(2)' && $(call UNPACK_PKG_ARCHIVE,$(1)); \
-	      cd '$(2)' && touch stamp_unpack_$($(1)_SUBDIR); \
+	      cd '$(2)' && $(call UNPACK_PKG_ARCHIVE,$(1)) \
+	      && touch stamp_unpack_$($(1)_SUBDIR); \
 	    fi
 	    cd '$(2)/$($(1)_SUBDIR)'
 	    if ! test -f '$(2)/stamp_patch_$($(1)_SUBDIR)'; then \
