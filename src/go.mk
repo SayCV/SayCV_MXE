@@ -3,21 +3,21 @@
 
 PKG             := go
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 92d1b87a30d1c9482e52fb4a68e8a355e7946331
-$(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
+$(PKG)_CHECKSUM := 73fff09786c68b9211a2ddf14c690fe374d15780
+$(PKG)_SUBDIR   := $(PKG)
 $(PKG)_FILE1    := $(PKG).weekly.2012-02-22.zip
 $(PKG)_FILE2    := $(PKG)$($(PKG)_VERSION).windows-386.zip
 $(PKG)_URL1     := https://gomingw.googlecode.com/files/$($(PKG)_FILE1)
 $(PKG)_URL2     := https://go.googlecode.com/files/$($(PKG)_FILE2)
 $(PKG)_FILE     := $($(PKG)_FILE2)
 $(PKG)_URL      := $($(PKG)_URL2)
-$(PKG)_DEPS     := zip
- 
-$(PKG)_REPO_BUILD    := 0
-$(PKG)_REPO_DIR      := $(PKG_DIR)/$(PKG)
-$(PKG)_REPO_URL_1    := https://go.googlecode.com/hg/
-$(PKG)_REPO_URL_2    := 
-$(PKG)_repo_cmd := hg
+$(PKG)_DEPS     := unzip
+
+$(PKG)_REPO_BUILD     := 0
+$(PKG)_REPO_DIR       := $(PKG_DIR)/$(PKG)
+$(PKG)_REPO_URL_1     := https://go.googlecode.com/hg/
+$(PKG)_REPO_URL_2     := 
+$(PKG)_REPO_CMD       := hg
 
 define $(PKG)_UPDATE
     $(WGET) -q -O- 'https://code.google.com/p/go/downloads/list/?C=M;O=D' | \
@@ -38,10 +38,10 @@ define $(PKG)_GET_PATCH
 endef
 
 define $(PKG)_REPO_GET
-    if ! [ -z '$($(PKG)_repo_cmd)' ]; then \
-      echo "$($(PKG)_repo_cmd) clone src ...";  \
+    if ! [ -z '$($(PKG)_REPO_CMD)' ]; then \
+      echo "$($(PKG)_REPO_CMD) clone src ...";  \
       cd $(PKG_DIR) && \
-      '$($(PKG)_repo_cmd)' clone $($(PKG)_REPO_URL_1) $(PKG); \
+      '$($(PKG)_REPO_CMD)' clone $($(PKG)_REPO_URL_1) $(PKG); \
     fi
 endef
 
@@ -61,15 +61,12 @@ define $(PKG)_BUILD
 endef
 
 define $(PKG)_BUILD_CFG
-    	mkdir -p '$(1)'; \
-	    cd    '$(3)' && './configure' \
-        	--target='$(TARGET)' \
-        	--build="`config.guess`" \
-        	--prefix='$(PREFIX)' \
-          --enable-case-insensitive-file-system \
-          --disable-job-server \
-        	&&  \
-      cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'
+      $(INSTALL) -d '$(PREFIX)/opt/go; \
+      cd '$(1)' && \
+        cp -rpv * '$(PREFIX)/opt/go'; \
+      cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
+      cd '$(1)' && touch 'stamp_make_$($(PKG)_SUBDIR)'; \
+      cd '$(1)' && touch 'stamp_install_$($(PKG)_SUBDIR)'
 endef
 
 define $(PKG)_BUILD_X
