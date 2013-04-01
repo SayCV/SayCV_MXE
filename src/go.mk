@@ -61,7 +61,7 @@ define $(PKG)_BUILD
 endef
 
 define $(PKG)_BUILD_CFG
-      $(INSTALL) -d '$(PREFIX)/opt/go; \
+      $(INSTALL) -d '$(PREFIX)/opt/go'; \
       cd '$(1)' && \
         cp -rpv * '$(PREFIX)/opt/go'; \
       cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
@@ -70,11 +70,6 @@ define $(PKG)_BUILD_CFG
 endef
 
 define $(PKG)_BUILD_X
-  if ! test -f '$(3)/stamp_bootstrap_$(PKG)'; then \
-		cd '$(3)' && ./autoreconf && \
-		touch 'stamp_bootstrap_$(PKG)'; \
-	fi; \
-	\
   if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: Configure."; \
       $(call $(PKG)_BUILD_CFG,$(1),$(2),$(3)); \
