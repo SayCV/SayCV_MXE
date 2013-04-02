@@ -3,8 +3,8 @@
 
 PKG             := ant
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 
-$(PKG)_SUBDIR   := $(PKG)
+$(PKG)_CHECKSUM := 791418e7e80e3f28d6347528e8992a14f09058e7
+$(PKG)_SUBDIR   := apache-$(PKG)-$($(PKG)_VERSION)-bin
 $(PKG)_FILE1    := apache-$(PKG)-$($(PKG)_VERSION)-bin.tar.gz
 $(PKG)_FILE2    := 
 $(PKG)_URL1     := http://labs.mop.com/apache-mirror//ant/binaries/$($(PKG)_FILE1)
