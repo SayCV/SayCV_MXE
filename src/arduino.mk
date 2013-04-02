@@ -3,7 +3,7 @@
 
 PKG             := arduino
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 791418e7e80e3f28d6347528e8992a14f09058e7
+$(PKG)_CHECKSUM := 
 $(PKG)_SUBDIR   := $(PKG)-$(PKG)-$($(PKG)_VERSION)
 $(PKG)_FILE1    := $(PKG)-$(PKG)-$($(PKG)_VERSION)-windows.zip
 $(PKG)_FILE2    := 
