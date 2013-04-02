@@ -3,9 +3,9 @@
 
 PKG             := arduino
 $(PKG)_IGNORE   :=
-$(PKG)_CHECKSUM := 
-$(PKG)_SUBDIR   := $(PKG)-$(PKG)-$($(PKG)_VERSION)
-$(PKG)_FILE1    := $(PKG)-$(PKG)-$($(PKG)_VERSION)-windows.zip
+$(PKG)_CHECKSUM := 97b2b66c56f9b9923d21bd6e2afb621e554c0e75
+$(PKG)_SUBDIR   := $(PKG)-$($(PKG)_VERSION)
+$(PKG)_FILE1    := $(PKG)-$($(PKG)_VERSION)-windows.zip
 $(PKG)_FILE2    := 
 $(PKG)_FILE     := $($(PKG)_FILE1)
 $(PKG)_URL1     := http://arduino.googlecode.com/files/$($(PKG)_FILE)
