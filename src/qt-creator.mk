@@ -17,6 +17,6 @@ define $(PKG)_BUILD
       cd '$(1)' && \
       	7z.exe -aoa x $(qt-creator_FILE) -oqt-creator
       $(INSTALL) -d '$(PREFIX)/opt/qt-creator'
-      cd '$(1)' && \
+      cd '$(1)/qt-creator' && \
         cp -rpv * '$(PREFIX)/opt/qt-creator'
 endef
