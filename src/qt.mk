@@ -22,11 +22,28 @@ define $(PKG)_BUILD
         OPENSSL_LIBS="`'$(TARGET)-pkg-config' --libs-only-l openssl`" \
         PSQL_LIBS="-lpq -lsecur32 `'$(TARGET)-pkg-config' --libs-only-l openssl` -lws2_32" \
         SYBASE_LIBS="-lsybdb `'$(TARGET)-pkg-config' --libs-only-l gnutls` -liconv -lws2_32" \
+        configure.exe -static -debug-and-release -opensource -confirm-license \
+        -platform win32-g++ -no-exceptions -dont-process -no-qt3support -webkit -system-zlib \
+        -system-libpng -system-libjpeg -system-libtiff -system-libmng -system-sqlite
+
+    cd '$(1)' && \
+    		bin\qmake.exe projects.pro QT_BUILD_PARTS=¡°libs¡± JAVASCRIPTCORE_JIT=¡°yes¡±
+
+    cd '$(1)' && \
+    		mingw32-make.exe
+endef
+
+define $(PKG)_BUILD_X
+    cd '$(1)' && QTDIR='$(1)' ./bin/syncqt
+    cd '$(1)' && \
+        OPENSSL_LIBS="`'$(TARGET)-pkg-config' --libs-only-l openssl`" \
+        PSQL_LIBS="-lpq -lsecur32 `'$(TARGET)-pkg-config' --libs-only-l openssl` -lws2_32" \
+        SYBASE_LIBS="-lsybdb `'$(TARGET)-pkg-config' --libs-only-l gnutls` -liconv -lws2_32" \
         ./configure \
         -opensource \
         -confirm-license \
         -fast \
-        -xplatform win32-g++-4.6 \
+        -xplatform win32-g++-4.7.6 \
         -device-option CROSS_COMPILE=$(TARGET)- \
         -device-option PKG_CONFIG='$(TARGET)-pkg-config' \
         -force-pkg-config \

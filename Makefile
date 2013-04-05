@@ -259,6 +259,9 @@ endef
 update:
 	$(foreach PKG,$(PKGS),$(call UPDATE,$(PKG),$(shell $($(PKG)_UPDATE))))
 
+update-%:
+	$(call UPDATE,$*,$(shell $($*_UPDATE)))
+
 update-checksum-%:
 	if [ -z '$($*_CHECKSUM)' ] || ! [ '$($*_CHECKSUM)' == "`$(call PKG_CHECKSUM,$*)`" ]; then \
       $(call DOWNLOAD_PKG_ARCHIVE,$*); \
