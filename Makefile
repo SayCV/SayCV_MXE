@@ -259,7 +259,7 @@ endef
 update:
 	$(foreach PKG,$(PKGS),$(call UPDATE,$(PKG),$(shell $($(PKG)_UPDATE))))
 
-update-%:
+update-ver-%:
 	$(call UPDATE,$*,$(shell $($*_UPDATE)))
 
 update-checksum-%:

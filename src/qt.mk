@@ -17,35 +17,51 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
-    cd '$(1)' && QTDIR='$(1)' ./bin/syncqt
-    cd '$(1)' && \
+    export PKG_CONFIG_LIBDIR='/d/work_coding/bitbucket-SayCV-Hosting/repo_SayCV_UTILS/SayCV_MXE/usr/i686-pc-mingw32/lib/pkgconfig'
+    mkdir -p '$(1).build'; \
+    cd '$(1).build' && QTDIR='$(1)' ../$(qt_SUBDIR)/bin/syncqt
+    
+    cd '$(1).build' && \
         OPENSSL_LIBS="`'$(TARGET)-pkg-config' --libs-only-l openssl`" \
         PSQL_LIBS="-lpq -lsecur32 `'$(TARGET)-pkg-config' --libs-only-l openssl` -lws2_32" \
         SYBASE_LIBS="-lsybdb `'$(TARGET)-pkg-config' --libs-only-l gnutls` -liconv -lws2_32" \
-        configure.exe -static -debug-and-release -opensource -confirm-license \
-        -platform win32-g++ -no-exceptions -dont-process -no-qt3support -webkit -system-zlib \
-        -system-libpng -system-libjpeg -system-libtiff -system-libmng -system-sqlite
+        ../$(qt_SUBDIR)/configure.exe \
+        -prefix '$(PREFIX)/$(TARGET)/qt' \
+        -L '$(PREFIX)/$(TARGET)/lib' \
+        -static -debug-and-release -opensource -confirm-license \
+        -platform win32-g++ -no-exceptions -no-qt3support \
+        -webkit -qt-sql-sqlite -qt-zlib -qt-libpng -qt-libjpeg
 
-    cd '$(1)' && \
-    		bin\qmake.exe projects.pro QT_BUILD_PARTS=¡°libs¡± JAVASCRIPTCORE_JIT=¡°yes¡±
+    $(MAKE) -C '$(1).build' -j '$(JOBS)'
+    #rm -rf '$(PREFIX)/$(TARGET)/qt'
+    $(MAKE) -C '$(1).build' -j 1 install
+    ln -fs '$(PREFIX)/$(TARGET)/qt/bin/moc' '$(PREFIX)/bin/$(TARGET)-moc'
+    ln -fs '$(PREFIX)/$(TARGET)/qt/bin/rcc' '$(PREFIX)/bin/$(TARGET)-roc'
+    ln -fs '$(PREFIX)/$(TARGET)/qt/bin/uic' '$(PREFIX)/bin/$(TARGET)-uic'
+    ln -fs '$(PREFIX)/$(TARGET)/qt/bin/qmake' '$(PREFIX)/bin/$(TARGET)-qmake'
 
-    cd '$(1)' && \
-    		mingw32-make.exe
+    cd '$(1).build/tools/assistant' && '$(1).build/bin/qmake' assistant.pro
+    $(MAKE) -C '$(1).build/tools/assistant' -j '$(JOBS)' install
+
+    cd '$(1).build/tools/designer' && '$(1).build/bin/qmake' designer.pro
+    $(MAKE) -C '$(1).build/tools/designer' -j '$(JOBS)' install
+
+    # at least some of the qdbus tools are useful on target
+    cd '$(1).build/tools/qdbus' && '$(1).build/bin/qmake' qdbus.pro
+    $(MAKE) -C '$(1).build/tools/qdbus' -j '$(JOBS)' install
 endef
 
-define $(PKG)_BUILD_X
+define $(PKG)_BUILD_x
     cd '$(1)' && QTDIR='$(1)' ./bin/syncqt
     cd '$(1)' && \
         OPENSSL_LIBS="`'$(TARGET)-pkg-config' --libs-only-l openssl`" \
         PSQL_LIBS="-lpq -lsecur32 `'$(TARGET)-pkg-config' --libs-only-l openssl` -lws2_32" \
         SYBASE_LIBS="-lsybdb `'$(TARGET)-pkg-config' --libs-only-l gnutls` -liconv -lws2_32" \
-        ./configure \
+        ./configure.exe \
         -opensource \
         -confirm-license \
         -fast \
-        -xplatform win32-g++-4.7.6 \
-        -device-option CROSS_COMPILE=$(TARGET)- \
-        -device-option PKG_CONFIG='$(TARGET)-pkg-config' \
+        -platform win32-g++ \
         -force-pkg-config \
         -release \
         -exceptions \
