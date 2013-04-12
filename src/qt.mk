@@ -21,7 +21,11 @@ define $(PKG)_BUILD
 		if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: Configure $(PKG)."; \
 	    cd '$(1)' && \
-	        configure.exe \
+	      OPENSSL_LIBS="`'$(TARGET)-pkg-config' --libs-only-l openssl`" \
+        PSQL_LIBS="-lpq -lsecur32 `'$(TARGET)-pkg-config' --libs-only-l openssl` -lws2_32" \
+        SYBASE_LIBS="-lsybdb `'$(TARGET)-pkg-config' --libs-only-l gnutls` -liconv -lws2_32" \
+        configure.exe \
+	        CROSS_COMPILE=$(TARGET)- \
 	        -static \
 	        -debug-and-release \
 	        -opensource \
