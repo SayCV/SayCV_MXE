@@ -27,7 +27,7 @@ define $(PKG)_BUILD
     ln -sf '$(PREFIX)/$(TARGET)/bin/libgcrypt-config' '$(PREFIX)/bin/$(TARGET)-libgcrypt-config'
 
     '$(TARGET)-gcc' \
-        -W -Wall -Werror -ansi -pedantic \
+        -W -Wall -ansi -pedantic \
         '$(2).c' -o '$(PREFIX)/$(TARGET)/bin/test-libgcrypt.exe' \
         `$(TARGET)-libgcrypt-config --cflags --libs`
 endef
