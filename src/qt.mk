@@ -17,7 +17,8 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
-    #mkdir -p '$(1).build';
+    export INSTALL_ROOT='$(PREFIX)/$(TARGET)/qt';
+    
 		if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
       echo "SayCV_MXE: Configure $(PKG)."; \
 	    cd '$(1)' && \
