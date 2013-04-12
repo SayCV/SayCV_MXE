@@ -17,20 +17,25 @@ define $(PKG)_UPDATE
 endef
 
 define $(PKG)_BUILD
-    mkdir -p '$(1).build';
-    
-    cd '$(1).build' && \
-        ../$(qt_SUBDIR)/configure.exe \
-        -prefix '$(PREFIX)/$(TARGET)/qt' \
-        -opensource \
-        -confirm-license \
-        -fast \
-        -platform win32-g++ \
-        -release \
-        -phonon \
-        -static
-		
-		$(MAKE) -C '$(1).build' -j '$(JOBS)'
+    #mkdir -p '$(1).build';
+		if ! test -f '$(1)/stamp_cfg_$($(PKG)_SUBDIR)'; then \
+      echo "SayCV_MXE: Configure $(PKG)."; \
+	    cd '$(1)' && \
+	        configure.exe \
+	        -static \
+	        -debug-and-release \
+	        -opensource \
+	        -confirm-license \
+	        -platform win32-g++ \
+	        -no-exceptions \
+	        -fast \
+	        -phonon \
+	        -webkit \
+					&&  \
+	     cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
+  	fi
+  	
+		$(MAKE) -C '$(1)' -j '$(JOBS)'
 endef
 
 define $(PKG)_BUILD_x
