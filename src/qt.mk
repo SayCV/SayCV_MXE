@@ -36,7 +36,9 @@ define $(PKG)_BUILD
 	        -fast \
 	        -phonon \
 	        -webkit \
-	        -qt-sql-sqlite -qt-zlib -qt-libpng -qt-libjpeg -qt-libmng \
+	        -qt-sql-sqlite \
+	        -qt-zlib \
+	        -qt-libpng -qt-libjpeg -qt-libmng -qt-libtiff \
 					&&  \
 	     cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
   	fi
