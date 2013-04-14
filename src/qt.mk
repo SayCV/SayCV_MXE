@@ -44,7 +44,6 @@ define $(PKG)_BUILD
   	fi
   	
 		$(MAKE) -i -C '$(1)' -j '$(JOBS)'
-		$(MAKE) -C '$(1)' -j 1 install
 endef
 
 define $(PKG)_BUILD_x
