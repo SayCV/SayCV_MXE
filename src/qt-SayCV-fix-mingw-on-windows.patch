@@ -1,0 +1,12 @@
+diff -urN a/src/3rdparty/webkit/Source/WebKit.pro b/src/3rdparty/webkit/Source/WebKit.pro
+--- a/src/3rdparty/webkit/Source/WebKit.pro	2013-04-14 12:07:32 +0800
++++ b/src/3rdparty/webkit/Source/WebKit.pro	2013-04-14 12:07:32 +0800
+@@ -22,7 +22,7 @@
+     exists($$PWD/WebKit/qt/declarative): SUBDIRS += WebKit/qt/declarative
+ }
+ 
+-exists($$PWD/WebKit/qt/tests): SUBDIRS += WebKit/qt/tests
++# exists($$PWD/WebKit/qt/tests): SUBDIRS += WebKit/qt/tests
+ 
+ build-qtscript {
+     SUBDIRS += \
