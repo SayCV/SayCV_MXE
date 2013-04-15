@@ -32,13 +32,16 @@ define $(PKG)_BUILD
 	        -opensource \
 	        -confirm-license \
 	        -platform win32-g++ \
-	        -no-exceptions \
+	        -exceptions \
 	        -fast \
 	        -phonon \
 	        -webkit \
 	        -qt-sql-sqlite \
 	        -qt-zlib \
 	        -qt-libpng -qt-libjpeg -qt-libmng -qt-libtiff \
+	        -nomake demos \
+	        -nomake docs \
+	        -nomake examples \
 					&&  \
 	     cd '$(1)' && touch 'stamp_cfg_$($(PKG)_SUBDIR)'; \
   	fi
