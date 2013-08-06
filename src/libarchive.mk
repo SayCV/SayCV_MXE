@@ -22,7 +22,7 @@ define $(PKG)_BUILD
         --host='$(TARGET)' \
         --prefix='$(PREFIX)/$(TARGET)' \
         --disable-shared \
-        --disable-bsdtar \
+        --enable-bsdtar \
         --disable-bsdcpio \
         XML2_CONFIG='$(PREFIX)/$(TARGET)'/bin/xml2-config
     $(MAKE) -C '$(1)' -j '$(JOBS)' man_MANS=
